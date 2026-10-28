@@ -1,0 +1,350 @@
+/* Page materials: each step's cards, panels, tiles and rows are finished in that step's metal.
+   App.tsx sets data-material on the app root (Load obsidian, Explain burgundy, Claims silver,
+   Evidence emerald, Prove champagne). Sapphire stays the brand and focus colour on every page.
+
+   A surface is built in layers, top to bottom:
+     --c-spec    polished top edge, inside the padding where there is no text;
+     --c-top     replaces the standard polished top edge (silver chrome, burgundy clear coat);
+     --c-bottom  reflected light along the bottom edge, inside the padding (silver only);
+     --c-sides   bright lips down the left and right edges and corner glints (silver only);
+     --c-sheen   one broad, soft reflection of the room;
+     --c-micro   the material's structure: brushing, flake, grain;
+     --c-bg      the metal body at a FIXED size (960 x 560 px), so a short row and a tall card show
+                 bands at the same scale instead of stretching them;
+     --c-base    the body colour beyond that sheet.
+   --c-edge is the machined rim, drawn in the border box where the border is a neutral rule.
+   Bodies stay dark (brightest band about 0.045 relative luminance) so every text colour keeps
+   WCAG AA contrast. Status borders (supported, contradicted, confirmed) are never replaced. */
+
+[data-material] {
+  background: var(--page-bg, var(--paper));
+}
+
+/* ---------- materials ---------- */
+
+/* Obsidian Titanium: matte black titanium. Fine horizontal brushing, one soft top light. */
+[data-material="obsidian"] {
+  --paper: #07080a;
+  --paper-2: #1d2127;
+  --card: #15181c;
+  --eyebrow: #c8d0da;
+  --highlight: #e9d7a8;
+  --page-bg:
+    radial-gradient(70% 60% at 85% -10%, rgba(200, 210, 225, 0.08), transparent 60%),
+    linear-gradient(180deg, #0c0e11, #07080a 60%, #050607);
+  --c-base: #111316;
+  --c-bg: linear-gradient(180deg, #212429 0%, #1a1d21 22%, #131518 52%, #15181b 78%, #111316 100%);
+  --c-micro:
+    repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.03) 0 1px, transparent 1px 2px),
+    repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.14) 0 1px, transparent 1px 7px);
+  --c-sheen: radial-gradient(70% 90px at 50% 0, rgba(225, 232, 242, 0.035), transparent 100%);
+  --c-spec: rgba(236, 240, 246, 0.55);
+  --c-bevel: rgba(236, 240, 246, 0.24);
+  --c-shadow: rgba(0, 0, 0, 0.95);
+  --c-edge: linear-gradient(160deg, rgba(232, 236, 242, 0.42), rgba(150, 158, 170, 0.1) 32%, rgba(60, 64, 72, 0.22) 66%, rgba(125, 184, 255, 0.32));
+  --m-accent: #7db8ff;
+  --m-btn-top: #5a606a;
+  --m-btn-bottom: #2a2d33;
+  --m-btn-text: #ffffff;
+}
+
+/* Burgundy Lacquer: deep, smooth wine under a clear coat. No brushing; one broad soft
+   reflection and a crisp gloss edge. */
+[data-material="burgundy"] {
+  --paper: #12060a;
+  --paper-2: #3a1420;
+  --card: #2a0d14;
+  --ink: #f7eeea;
+  --ink-2: #e5cdc7;
+  --muted: #c2a39e;
+  --rule: rgba(229, 205, 199, 0.16);
+  --rule-strong: rgba(229, 205, 199, 0.32);
+  --eyebrow: #e9b9a2;
+  --highlight: #f3e0b0;
+  --page-bg:
+    radial-gradient(70% 60% at 90% 0%, #3e1218 0%, transparent 65%),
+    linear-gradient(170deg, #22090f, #12060a 55%, #0b0306);
+  --c-base: #1e070e;
+  --c-bg:
+    radial-gradient(140% 120% at 50% 0%, transparent 55%, rgba(8, 0, 3, 0.55) 100%),
+    linear-gradient(175deg, #3a1120 0%, #30101a 30%, #250a13 65%, #1c060d 100%);
+  --c-micro: linear-gradient(180deg, rgba(255, 255, 255, 0.02), transparent 40%);
+  /* Clear coat: a crisp-edged softbox reflection lying in the lacquer near the top. */
+  --c-sheen: linear-gradient(180deg, transparent 0 5px, rgba(255, 238, 233, 0.075) 5px, rgba(255, 238, 233, 0.05) 22px, rgba(255, 238, 233, 0.035) 36px, transparent 36px);
+  --c-top: linear-gradient(180deg, rgba(255, 240, 236, 0.92) 0, rgba(255, 240, 236, 0.5) 1px, rgba(255, 240, 236, 0.12) 2px, transparent 4px);
+  --c-spec: rgba(255, 238, 233, 0.85);
+  --c-bevel: rgba(255, 232, 226, 0.42);
+  --c-shadow: rgba(20, 2, 6, 0.95);
+  --c-edge: linear-gradient(160deg, rgba(255, 236, 230, 0.7), rgba(240, 190, 175, 0.16) 28%, rgba(70, 16, 28, 0.45) 62%, rgba(220, 150, 150, 0.45));
+  --m-accent: #f0b9a6;
+  --m-btn-top: #9a2a3a;
+  --m-btn-bottom: #5a1220;
+  --m-btn-text: #ffffff;
+}
+
+/* Liquid Silver: mirror chrome. Hard-edged reflections in a dark steel body, the brightest
+   rim and a reflected light line along the bottom edge. */
+[data-material="silver"] {
+  --paper: #0d1015;
+  --paper-2: #222932;
+  --card: #181d24;
+  --ink: #f3f5f8;
+  --ink-2: #c9d0d9;
+  --muted: #9aa4b1;
+  --rule: rgba(201, 208, 217, 0.16);
+  --rule-strong: rgba(201, 208, 217, 0.32);
+  --eyebrow: #d7dee7;
+  --highlight: #e9eef5;
+  --page-bg:
+    radial-gradient(70% 60% at 80% 0%, rgba(220, 230, 242, 0.1), transparent 60%),
+    linear-gradient(170deg, #1a1f26, #0d1015 60%, #090b0e);
+  --c-base: #0d0f13;
+  /* Chrome: deep light-to-dark swings like a curved mirror, smooth so no edge cuts through text;
+     the crisp, bright reflections sit on the lips and rim, where there is no text. */
+  --c-bg: linear-gradient(180deg, #262b33 0%, #14171c 8%, #090b0e 20%, #1c2027 38%, #262b33 46%, #0d0f12 60%, #090b0e 72%, #1c2027 88%, #0d0f13 100%);
+  --c-micro: linear-gradient(90deg, rgba(210, 225, 245, 0.05) 0, transparent 14%, transparent 72%, rgba(210, 225, 245, 0.05) 86%, transparent 94%);
+  --c-sheen: none;
+  /* Polished top lip: a bright band with a hard dark reflection line beneath it, all inside the padding. */
+  --c-top: linear-gradient(180deg, rgba(255, 255, 255, 1) 0, rgba(236, 242, 250, 0.85) 1px, rgba(196, 206, 220, 0.6) 3px, rgba(140, 150, 165, 0.38) 5px, rgba(0, 0, 0, 0.55) 5px, rgba(0, 0, 0, 0.3) 7px, transparent 9px);
+  --c-top-tile: linear-gradient(180deg, rgba(255, 255, 255, 0.95) 0, rgba(210, 220, 232, 0.55) 2px, rgba(0, 0, 0, 0.45) 3px, transparent 5px);
+  --c-bottom: linear-gradient(0deg, rgba(225, 233, 245, 0.6) 0, rgba(170, 182, 198, 0.32) 2px, rgba(0, 0, 0, 0.35) 3px, transparent 5px);
+  --c-spec: rgba(255, 255, 255, 0.95);
+  --c-bevel: rgba(255, 255, 255, 0.6);
+  --c-shadow: rgba(0, 0, 0, 0.95);
+  --c-edge: linear-gradient(170deg, #ffffff 0%, #e2e8ef 9%, #59626e 9%, #2b3139 27%, #f4f7fa 45%, #6b7480 45%, #343a43 64%, #dfe5ec 83%, #ffffff 100%);
+  --c-sides:
+    radial-gradient(16px 9px at 0 0, rgba(255, 255, 255, 0.95), transparent 100%),
+    radial-gradient(22px 8px at 100% 0, rgba(255, 255, 255, 0.75), transparent 100%),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.7) 0, rgba(205, 214, 226, 0.32) 1px, rgba(0, 0, 0, 0.45) 2px, transparent 4px),
+    linear-gradient(270deg, rgba(232, 238, 246, 0.55) 0, rgba(180, 190, 204, 0.28) 1px, rgba(0, 0, 0, 0.45) 2px, transparent 4px);
+  --m-accent: #b9d2ee;
+  --m-btn-top: #d9dee5;
+  --m-btn-bottom: #8f98a4;
+  --m-btn-text: #0b0e12;
+}
+
+/* Emerald Petrol: metallic paint. Fine flake in a body that shifts from green to teal,
+   with wide, low-contrast satin bands. */
+[data-material="emerald"] {
+  --paper: #0a1410;
+  --paper-2: #1b3329;
+  --card: #13261e;
+  --ink: #eef4ef;
+  --ink-2: #c6d5ca;
+  --muted: #9ab0a1;
+  --rule: rgba(198, 213, 202, 0.15);
+  --rule-strong: rgba(198, 213, 202, 0.3);
+  --eyebrow: #b7cdbc;
+  --highlight: #f3e0b0;
+  --page-bg:
+    radial-gradient(70% 60% at 80% 10%, #1a3529 0%, transparent 65%),
+    linear-gradient(170deg, #102019, #0a1410 60%, #07100c);
+  --c-base: #0a2226;
+  /* Metallic emerald turning to petrol teal across the panel. */
+  --c-bg: linear-gradient(115deg, #0d2d21 0%, #0e2e25 22%, #0e2e2c 44%, #0c2c31 64%, #0f3439 80%, #0a2226 100%);
+  --c-micro:
+    radial-gradient(110% 90% at 0% 0%, rgba(110, 225, 175, 0.04), transparent 55%),
+    radial-gradient(90% 80% at 100% 100%, rgba(0, 8, 10, 0.4), transparent 62%);
+  --c-sheen: radial-gradient(90% 70px at 26% 0, rgba(150, 235, 210, 0.045), transparent 100%);
+  --c-spec: rgba(200, 245, 232, 0.75);
+  --c-bevel: rgba(190, 240, 225, 0.34);
+  --c-shadow: rgba(0, 12, 10, 0.95);
+  --c-edge: linear-gradient(160deg, rgba(200, 245, 230, 0.6), rgba(90, 200, 180, 0.16) 30%, rgba(10, 50, 52, 0.45) 64%, rgba(110, 210, 205, 0.45));
+  --m-accent: #e3c98f;
+  --m-btn-top: #237572;
+  --m-btn-bottom: #14494b;
+  --m-btn-text: #f2fbf8;
+}
+
+/* Champagne Metal: brushed warm gold. Vertical grain at two scales, a soft warm sheen. */
+[data-material="champagne"] {
+  --paper: #080706;
+  --paper-2: #221d15;
+  --card: #17140f;
+  --ink: #f6f1e6;
+  --ink-2: #dcd1ba;
+  --muted: #aca088;
+  --rule: rgba(220, 209, 186, 0.15);
+  --rule-strong: rgba(220, 209, 186, 0.3);
+  --eyebrow: #e3c27e;
+  --highlight: #f3e0b0;
+  --page-bg:
+    radial-gradient(60% 50% at 70% 20%, rgba(255, 242, 214, 0.06), transparent 65%),
+    linear-gradient(170deg, #15120c, #080706 60%, #050403);
+  --c-base: #1b150d;
+  --c-bg: linear-gradient(180deg, #261e14 0%, #231b12 25%, #211a11 55%, #1b150d 100%);
+  /* Brushed grain without repetition: noise stretched along the brushing direction, plus the soft
+     vertical highlight column that brushed metal throws. */
+  --c-micro:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='480' height='480'%3E%3Cfilter id='b'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.2 0.005' numOctaves='1' seed='4' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 0.9 0 0 0 0 0.72 0 0 0 0.08 -0.03'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23b)'/%3E%3C/svg%3E"),
+    linear-gradient(90deg, transparent 12%, rgba(255, 232, 190, 0.025) 34%, rgba(255, 232, 190, 0.01) 50%, transparent 62%);
+  --c-sheen: radial-gradient(70% 110px at 60% 0, rgba(255, 230, 185, 0.045), transparent 100%);
+  --c-spec: rgba(255, 236, 200, 0.75);
+  --c-bevel: rgba(255, 236, 200, 0.36);
+  --c-shadow: rgba(10, 6, 0, 0.95);
+  --c-edge: linear-gradient(160deg, rgba(248, 230, 186, 0.78), rgba(243, 224, 176, 0.16) 28%, rgba(90, 66, 30, 0.42) 62%, rgba(196, 158, 96, 0.65));
+  --m-accent: #e3c27e;
+  --m-btn-top: #f1dca8;
+  --m-btn-bottom: #b08a4f;
+  --m-btn-text: #1a140a;
+}
+
+/* ---------- surfaces ---------- */
+
+/* Panels: the full finish. Step cards, claim cards, verdict and finding articles, the drop zone. */
+[data-material] :is(.rounded-xl.bg-card, .rounded-xl.shadow-card, .rounded-xl.bg-marker\/10, .rounded-xl.bg-marker\/15):not(input, textarea, select) {
+  background:
+    var(--c-top, linear-gradient(180deg, var(--c-spec) 0, color-mix(in srgb, var(--c-spec) 35%, transparent) 2px, transparent 14px)) padding-box,
+    var(--c-bottom, none) padding-box,
+    var(--c-sides, none) padding-box,
+    var(--c-sheen) padding-box,
+    var(--c-micro) padding-box,
+    var(--c-bg) 0 0 / 960px 560px no-repeat padding-box,
+    var(--c-base);
+  box-shadow:
+    inset 0 1px 0 var(--c-bevel),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.75),
+    inset 0 -40px 48px -40px rgba(0, 0, 0, 0.6),
+    0 28px 54px -26px var(--c-shadow),
+    0 3px 6px -2px rgba(0, 0, 0, 0.6);
+}
+
+/* Tiles: satin. Summary tiles, notes, secondary buttons, icon wells outside a panel. */
+[data-material] :is(
+    .rounded-lg.bg-card,
+    .rounded-md.bg-card,
+    .rounded-lg.bg-paper-2,
+    .rounded-xl.bg-paper-2,
+    .rounded-lg.bg-paper-2\/50,
+    .rounded-lg.bg-paper-2\/60,
+    .rounded-lg.bg-paper-2\/70,
+    .rounded-xl.bg-paper-2\/60,
+    .border-marker.bg-card
+  ):not(input, textarea, select) {
+  background:
+    var(--c-top-tile, linear-gradient(180deg, color-mix(in srgb, var(--c-spec) 70%, transparent) 0, transparent 8px)) padding-box,
+    var(--c-bottom, none) padding-box,
+    var(--c-sides, none) padding-box,
+    var(--c-micro) padding-box,
+    var(--c-bg) 0 0 / 960px 560px no-repeat padding-box,
+    var(--c-base);
+  box-shadow:
+    inset 0 1px 0 var(--c-bevel),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.7),
+    inset 0 -22px 28px -24px rgba(0, 0, 0, 0.6),
+    0 16px 30px -18px var(--c-shadow),
+    0 2px 4px -1px rgba(0, 0, 0, 0.55);
+}
+
+/* Machined rim in place of a neutral grey border. Status borders keep their colour. */
+[data-material] :is(
+    .rounded-xl.bg-card, .rounded-xl.shadow-card, .rounded-lg.bg-card, .rounded-md.bg-card,
+    .rounded-lg.bg-paper-2, .rounded-lg.bg-paper-2\/50, .rounded-lg.bg-paper-2\/60, .rounded-xl.bg-paper-2\/60
+  ):is(.border-rule, .border-rule-strong):not(input, textarea, select) {
+  border-color: transparent;
+  background-origin: padding-box;
+}
+[data-material] :is(.rounded-xl.bg-card, .rounded-xl.shadow-card):is(.border-rule, .border-rule-strong):not(input, textarea, select) {
+  background:
+    var(--c-top, linear-gradient(180deg, var(--c-spec) 0, color-mix(in srgb, var(--c-spec) 35%, transparent) 2px, transparent 14px)) padding-box,
+    var(--c-bottom, none) padding-box,
+    var(--c-sides, none) padding-box,
+    var(--c-sheen) padding-box,
+    var(--c-micro) padding-box,
+    var(--c-bg) 0 0 / 960px 560px no-repeat padding-box,
+    linear-gradient(var(--c-base), var(--c-base)) padding-box,
+    var(--c-edge) border-box;
+}
+[data-material] :is(.rounded-lg.bg-card, .rounded-md.bg-card, .rounded-lg.bg-paper-2, .rounded-lg.bg-paper-2\/50, .rounded-lg.bg-paper-2\/60, .rounded-xl.bg-paper-2\/60):is(.border-rule, .border-rule-strong):not(input, textarea, select) {
+  background:
+    var(--c-top-tile, linear-gradient(180deg, color-mix(in srgb, var(--c-spec) 70%, transparent) 0, transparent 8px)) padding-box,
+    var(--c-bottom, none) padding-box,
+    var(--c-sides, none) padding-box,
+    var(--c-micro) padding-box,
+    var(--c-bg) 0 0 / 960px 560px no-repeat padding-box,
+    linear-gradient(var(--c-base), var(--c-base)) padding-box,
+    var(--c-edge) border-box;
+}
+
+[data-material="silver"] :is(.rounded-xl.bg-card, .rounded-xl.shadow-card):not(input, textarea, select) {
+  box-shadow:
+    0 0 0 1px rgba(0, 0, 0, 0.7),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.16),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.75),
+    inset 0 -40px 48px -40px rgba(0, 0, 0, 0.6),
+    0 28px 54px -26px var(--c-shadow),
+    0 3px 6px -2px rgba(0, 0, 0, 0.6);
+}
+
+/* Inside a panel, boxes are recessed into it instead of repeating the full finish. */
+[data-material] :is(.rounded-xl.bg-card, .rounded-xl.shadow-card) :is(
+    .rounded-lg.bg-card, .rounded-md.bg-card, .rounded-lg.bg-paper-2, .rounded-xl.bg-paper-2,
+    .rounded-lg.bg-paper-2\/50, .rounded-lg.bg-paper-2\/60, .rounded-lg.bg-paper-2\/70, .rounded-xl.bg-paper-2\/60
+  ):not(input, textarea, select, button) {
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.34), rgba(0, 0, 0, 0.22));
+  border-color: var(--rule);
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.45), inset 0 -1px 0 color-mix(in srgb, var(--c-bevel) 30%, transparent);
+}
+
+/* Rows and strips inside a panel: recessed, so the panel's metal reads through them. */
+[data-material] :is(.bg-paper-2, .bg-paper-2\/40, .bg-paper-2\/50, .bg-paper-2\/60):not(.rounded-full, .rounded-md, .rounded-lg, .rounded-xl, button) {
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.18));
+  box-shadow: inset 0 1px 0 rgba(0, 0, 0, 0.35), inset 0 -1px 0 color-mix(in srgb, var(--c-bevel) 35%, transparent);
+}
+
+/* Verdict and status tints stay, but translucent and darkened, so the metal shows beneath them
+   and every text colour keeps AA contrast on the brightest band. */
+[data-material] .bg-ok-bg:not(button) { background-color: color-mix(in srgb, var(--ok) 10%, rgb(0 0 0 / 0.38)); }
+[data-material] .bg-bad-bg:not(button) { background-color: color-mix(in srgb, var(--bad) 10%, rgb(0 0 0 / 0.38)); }
+[data-material] .bg-unk-bg:not(button) { background-color: color-mix(in srgb, var(--unk) 10%, rgb(0 0 0 / 0.38)); }
+
+/* Hover: the bevel brightens; the page accent never replaces a status border. */
+@media (pointer: fine) {
+  [data-material] :is(label.rounded-xl.bg-card, button.rounded-lg.bg-card):hover {
+    box-shadow:
+      inset 0 1px 0 var(--c-bevel),
+      inset 0 0 0 1px color-mix(in srgb, var(--c-spec) 45%, transparent),
+      inset 0 -22px 28px -24px rgba(0, 0, 0, 0.6),
+      0 20px 34px -18px var(--c-shadow),
+      0 2px 4px -1px rgba(0, 0, 0, 0.55);
+  }
+}
+
+/* Selected: polished, with the page accent along the edge. */
+[data-material] :is(.rounded-xl.bg-marker\/10, .rounded-xl.bg-marker\/15) {
+  background:
+    linear-gradient(180deg, var(--c-spec) 0, color-mix(in srgb, var(--c-spec) 30%, transparent) 2px, transparent 12px),
+    linear-gradient(90deg, color-mix(in srgb, var(--m-accent) 14%, transparent), transparent 70%),
+    var(--c-micro),
+    var(--c-bg) 0 0 / 960px 560px no-repeat,
+    var(--c-base);
+  box-shadow:
+    inset 0 0 0 1.5px var(--m-accent),
+    inset 0 1px 0 var(--c-bevel),
+    inset 0 -22px 28px -24px rgba(0, 0, 0, 0.6),
+    0 20px 40px -18px var(--c-shadow);
+}
+
+/* Primary buttons: a bar of the page's metal. */
+[data-material] .bg-ink.text-paper:not([aria-current]) {
+  background: linear-gradient(180deg, var(--m-btn-top), var(--m-btn-bottom));
+  color: var(--m-btn-text);
+  border-color: transparent;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.35),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.35),
+    0 10px 22px -14px var(--c-shadow),
+    0 2px 4px -1px rgba(0, 0, 0, 0.5);
+}
+
+/* The current step: a quiet raised plate with the page accent along its edge. */
+[data-material] [aria-current="step"].bg-ink.text-paper {
+  background:
+    linear-gradient(90deg, color-mix(in srgb, var(--m-accent) 13%, transparent), transparent 85%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.02));
+  color: var(--ink);
+  box-shadow:
+    inset 2px 0 0 var(--m-accent),
+    inset 0 0 0 1px color-mix(in srgb, var(--m-accent) 32%, transparent),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}

@@ -20,6 +20,9 @@ const STEPS: { n: Step; label: string }[] = [
   { n: 5, label: "Prove" },
 ];
 
+/** Each step is finished in its own metal (see materials.css). */
+const MATERIAL: Record<Step, string> = { 1: "obsidian", 2: "burgundy", 3: "silver", 4: "emerald", 5: "champagne" };
+
 function message(e: unknown): string {
   return e instanceof ApiError ? e.message : "Something went wrong. Try again.";
 }
@@ -136,9 +139,9 @@ export default function App() {
   const unlocked = step >= 4;
 
   return (
-    <div className="min-h-dvh">
+    <div className="min-h-dvh" data-material={MATERIAL[step]}>
       <header className="sticky top-0 z-10 border-b border-rule bg-paper/90 backdrop-blur">
-        <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-3 sm:px-6">
+        <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-3 sm:px-6">
           <Wordmark />
           <div className="flex items-center gap-3">
             <span className="hidden items-center gap-1.5 font-mono text-[0.7rem] uppercase tracking-wider text-muted sm:inline-flex">
@@ -157,7 +160,7 @@ export default function App() {
         </div>
       </header>
 
-      <div className="mx-auto grid max-w-6xl grid-cols-1 gap-8 px-4 pb-24 pt-8 sm:px-6 lg:grid-cols-[13rem_minmax(0,1fr)] lg:gap-14 lg:pt-14">
+      <div className="mx-auto grid max-w-7xl grid-cols-1 gap-8 px-4 pb-24 pt-8 sm:px-6 lg:grid-cols-[13rem_minmax(0,1fr)] lg:gap-14 lg:pt-14">
         <nav aria-label="Steps" className="min-w-0 lg:sticky lg:top-24 lg:self-start">
           <ol className="flex gap-1 overflow-x-auto lg:flex-col lg:gap-0.5">
             {STEPS.map((s) => {
@@ -187,7 +190,7 @@ export default function App() {
           </p>
         </nav>
 
-        <main className="min-w-0 max-w-3xl">
+        <main className="min-w-0 max-w-[57rem]">
           {step === 1 && (
             <LoadStep
               files={files}

@@ -44,7 +44,7 @@ export function Button({
 
 export function Eyebrow({ children }: { children: ReactNode }) {
   return (
-    <p className="font-mono text-[0.68rem] font-medium uppercase tracking-[0.17em] text-muted">
+    <p className="text-[0.78rem] font-bold uppercase tracking-[0.16em] text-eyebrow">
       {children}
     </p>
   );
@@ -62,11 +62,11 @@ export function StepHeading({
   return (
     <header className="mb-8 sm:mb-10">
       <Eyebrow>Step {index}</Eyebrow>
-      <h1 className="mt-3 max-w-[18ch] font-serif text-[2.25rem] leading-[1.06] tracking-[-0.035em] text-ink sm:text-[2.8rem]">
+      <h1 className="mt-3 max-w-[22ch] font-serif text-[2.4rem] font-bold leading-[1.06] tracking-[-0.02em] text-ink sm:text-[3.33rem] [&_em]:font-normal [&_em]:text-highlight">
         {title}
       </h1>
       {lede && (
-        <p className="mt-4 max-w-[58ch] text-[0.96rem] leading-7 text-ink-2 sm:text-base">
+        <p className="mt-4 max-w-[58ch] text-[1.05rem] leading-7 text-ink-2 sm:text-[1.1875rem] sm:leading-[1.6]">
           {lede}
         </p>
       )}

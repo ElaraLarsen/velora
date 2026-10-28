@@ -2,71 +2,30 @@
 /* The design prototype has its own stylesheet; keep its class names out of the app's CSS. */
 @source not "../prototype";
 
-/* Handwave design tokens: paper, ink, a highlighter, and three verdict colours. */
+/* Handwave design tokens: Obsidian Titanium workspace, sapphire brand and focus,
+   a champagne highlighter, and three verdict colours. Page materials build on these. */
 :root {
-  --paper: #f4f1ea;
-  --paper-2: #ebe6da;
-  --card: #fbfaf6;
-  --ink: #16150f;
-  --ink-2: #48453d;
-  --muted: #77736a;
-  --rule: rgba(22, 21, 15, 0.13);
-  --rule-strong: rgba(22, 21, 15, 0.28);
-  --marker: #f5d547;
-  --marker-ink: #2e2600;
-  --ok: #1d6a46;
-  --ok-bg: #e2eee5;
-  --bad: #a1302a;
-  --bad-bg: #f6e2dd;
-  --unk: #5b6370;
-  --unk-bg: #e5e6e8;
-  --code-bg: #f0ece2;
-  --shadow: 0 1px 0 rgba(22, 21, 15, 0.04), 0 8px 24px -12px rgba(22, 21, 15, 0.18);
-  color-scheme: light;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    --paper: #12110d;
-    --paper-2: #1a1914;
-    --card: #1c1b16;
-    --ink: #eeeadf;
-    --ink-2: #c4bfb2;
-    --muted: #8f8a7e;
-    --rule: rgba(238, 234, 223, 0.12);
-    --rule-strong: rgba(238, 234, 223, 0.26);
-    --marker: #e3c53a;
-    --marker-ink: #1a1500;
-    --ok: #62bf8d;
-    --ok-bg: #16281e;
-    --bad: #ea7d72;
-    --bad-bg: #2e1715;
-    --unk: #a1a8b3;
-    --unk-bg: #22252a;
-    --code-bg: #16150f;
-    --shadow: 0 1px 0 rgba(0, 0, 0, 0.3), 0 8px 24px -12px rgba(0, 0, 0, 0.6);
-    color-scheme: dark;
-  }
-}
-
-:root[data-theme="dark"] {
-  --paper: #12110d;
-  --paper-2: #1a1914;
-  --card: #1c1b16;
-  --ink: #eeeadf;
-  --ink-2: #c4bfb2;
-  --muted: #8f8a7e;
-  --rule: rgba(238, 234, 223, 0.12);
-  --rule-strong: rgba(238, 234, 223, 0.26);
-  --marker: #e3c53a;
-  --marker-ink: #1a1500;
-  --ok: #62bf8d;
-  --ok-bg: #16281e;
-  --bad: #ea7d72;
-  --bad-bg: #2e1715;
-  --unk: #a1a8b3;
-  --unk-bg: #22252a;
-  --code-bg: #16150f;
+  --paper: #07080a;
+  --paper-2: #101215;
+  --card: #15181c;
+  --ink: #f1f2f4;
+  --ink-2: #c6cbd3;
+  --muted: #959ca7;
+  --rule: rgba(206, 207, 208, 0.14);
+  --rule-strong: rgba(206, 207, 208, 0.3);
+  --marker: #e9d7a8;
+  --marker-ink: #1a1408;
+  --ok: #7be3a0;
+  --ok-bg: #12261c;
+  --bad: #ff8a8f;
+  --bad-bg: #2a1416;
+  --unk: #c8d0da;
+  --unk-bg: #1c2026;
+  --code-bg: #0c0e11;
+  --sapphire: #5cc8ff;
+  --sapphire-deep: #2a63f0;
+  --focus: #9ccbff;
+  --shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06), 0 1px 0 rgba(0, 0, 0, 0.4), 0 18px 40px -22px rgba(0, 0, 0, 0.9);
   color-scheme: dark;
 }
 
@@ -88,9 +47,12 @@
   --color-unk: var(--unk);
   --color-unk-bg: var(--unk-bg);
   --color-code: var(--code-bg);
-  --font-sans: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
+  --color-sapphire: var(--sapphire);
+  --color-sapphire-deep: var(--sapphire-deep);
+  --color-focus: var(--focus);
+  --font-sans: "Carlito", "Calibri", ui-sans-serif, system-ui, sans-serif;
   --font-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
-  --font-serif: "Newsreader", Georgia, "Times New Roman", serif;
+  --font-serif: "Caladea", "Cambria", Georgia, "Times New Roman", serif;
   --shadow-card: var(--shadow);
 }
 
@@ -112,7 +74,7 @@ body {
 }
 
 :focus-visible {
-  outline: 2px solid var(--ink);
+  outline: 2px solid var(--focus);
   outline-offset: 2px;
   border-radius: 4px;
 }
@@ -227,8 +189,8 @@ textarea::placeholder {
 input:focus,
 textarea:focus,
 select:focus {
-  border-color: var(--ink-2);
-  box-shadow: 0 0 0 3px var(--rule);
+  border-color: var(--focus);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--sapphire) 22%, transparent);
 }
 
 textarea {

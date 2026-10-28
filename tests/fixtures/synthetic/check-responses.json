@@ -1,0 +1,232 @@
+{
+  "_note": "FABRICATED model responses for Handwave safeguard tests. Each case is the raw JSON an evidence-check model might return for the synthetic app in ./app.",
+  "exact_single_line": {
+    "verdicts": [
+      {
+        "claimId": "c1",
+        "verdict": "SUPPORTED",
+        "explanation": "Files over the limit throw an error.",
+        "quotes": [{ "file": "app/upload.js", "text": "  if (file.size > MAX_UPLOAD_BYTES) {" }],
+        "alternativeInterpretation": "",
+        "missingContext": "",
+        "consequence": "NONE",
+        "manualTest": { "steps": ["Upload a 3 MB photo."], "expected": "It is rejected." }
+      }
+    ]
+  },
+  "reindented_multi_line": {
+    "verdicts": [
+      {
+        "claimId": "c1",
+        "verdict": "SUPPORTED",
+        "explanation": "Oversized photos throw.",
+        "quotes": [{ "file": "app/upload.js", "text": "if (file.size > MAX_UPLOAD_BYTES) {\nthrow new Error(\"Photo too large\");" }],
+        "alternativeInterpretation": "",
+        "missingContext": "",
+        "consequence": "NONE",
+        "manualTest": { "steps": ["Upload a 3 MB photo."], "expected": "It is rejected." }
+      }
+    ]
+  },
+  "contradiction_two_lines": {
+    "verdicts": [
+      {
+        "claimId": "c3",
+        "verdict": "CONTRADICTED",
+        "explanation": "The success toast is shown without checking the response.",
+        "quotes": [{ "file": "app/upload.js", "text": "  const res = await fetch(\"/api/photos\", { method: \"POST\", body: photo });\n  showToast(\"Uploaded!\");" }],
+        "alternativeInterpretation": "",
+        "missingContext": "",
+        "consequence": "MEDIUM",
+        "manualTest": { "steps": ["Go offline.", "Upload a photo."], "expected": "An error appears." }
+      }
+    ]
+  },
+  "duplicate_line": {
+    "verdicts": [
+      {
+        "claimId": "c6",
+        "verdict": "SUPPORTED",
+        "explanation": "Attempts are logged.",
+        "quotes": [{ "file": "app/upload.js", "text": "  console.log(\"attempt\");" }],
+        "alternativeInterpretation": "",
+        "missingContext": "",
+        "consequence": "NONE",
+        "manualTest": { "steps": ["Open the console and upload."], "expected": "'attempt' is logged." }
+      }
+    ]
+  },
+  "rejected_quotes_matrix": {
+    "verdicts": [
+      {
+        "claimId": "c2",
+        "verdict": "SUPPORTED",
+        "explanation": "Invented: photos are written to a database.",
+        "quotes": [{ "file": "app/server.js", "text": "db.photos.insert(req.body);" }],
+        "alternativeInterpretation": "",
+        "missingContext": "",
+        "consequence": "NONE",
+        "manualTest": { "steps": ["Restart the server."], "expected": "Photos are still listed." }
+      },
+      {
+        "claimId": "c3",
+        "verdict": "CONTRADICTED",
+        "explanation": "Off by one character.",
+        "quotes": [{ "file": "app/server.js", "text": "  photos.push(req.bdy);" }],
+        "alternativeInterpretation": "",
+        "missingContext": "",
+        "consequence": "LOW",
+        "manualTest": { "steps": ["Upload."], "expected": "Stored." }
+      },
+      {
+        "claimId": "c4",
+        "verdict": "SUPPORTED",
+        "explanation": "Real text, wrong file.",
+        "quotes": [{ "file": "app/upload.js", "text": "  photos.push(req.body);" }],
+        "alternativeInterpretation": "",
+        "missingContext": "",
+        "consequence": "NONE",
+        "manualTest": { "steps": ["Upload."], "expected": "Stored." }
+      },
+      {
+        "claimId": "c5",
+        "verdict": "CONTRADICTED",
+        "explanation": "Cites a file that was never uploaded.",
+        "quotes": [
+          { "file": "app/auth.js", "text": "  photos.push(req.body);" },
+          { "file": "app/auth.js", "text": "requireLogin(req, res, next);" }
+        ],
+        "alternativeInterpretation": "",
+        "missingContext": "",
+        "consequence": "HIGH",
+        "manualTest": { "steps": ["Log out and open /api/photos."], "expected": "Access denied." }
+      },
+      {
+        "claimId": "c6",
+        "verdict": "SUPPORTED",
+        "explanation": "Too short to be evidence.",
+        "quotes": [{ "file": "app/upload.js", "text": "return res;" }],
+        "alternativeInterpretation": "",
+        "missingContext": "",
+        "consequence": "NONE",
+        "manualTest": { "steps": ["Upload."], "expected": "A response returns." }
+      },
+      {
+        "claimId": "c7",
+        "verdict": "SUPPORTED",
+        "explanation": "Regex characters must be treated literally.",
+        "quotes": [{ "file": "app/server.js", "text": "photos.push(.*);  res.json(.+);" }],
+        "alternativeInterpretation": "",
+        "missingContext": "",
+        "consequence": "NONE",
+        "manualTest": { "steps": ["Upload."], "expected": "Stored." }
+      }
+    ]
+  },
+  "verdicts_without_quotes": {
+    "verdicts": [
+      {
+        "claimId": "c2",
+        "verdict": "CONTRADICTED",
+        "explanation": "Claims a contradiction but cites nothing.",
+        "quotes": [],
+        "alternativeInterpretation": "",
+        "missingContext": "",
+        "consequence": "HIGH",
+        "manualTest": { "steps": ["Restart the server."], "expected": "Photos persist." }
+      },
+      {
+        "claimId": "c5",
+        "verdict": "NOT_VERIFIABLE",
+        "explanation": "No authentication code was provided.",
+        "quotes": [],
+        "alternativeInterpretation": "",
+        "missingContext": "Authentication middleware.",
+        "consequence": "NONE",
+        "manualTest": { "steps": ["Log out and open /api/photos."], "expected": "Access denied." }
+      }
+    ]
+  },
+  "mixed_real_and_invented": {
+    "verdicts": [
+      {
+        "claimId": "c2",
+        "verdict": "CONTRADICTED",
+        "explanation": "Photos are kept in memory only.",
+        "quotes": [
+          { "file": "app/server.js", "text": "  // Stores the photo in memory only; nothing is persisted.\n  photos.push(req.body);" },
+          { "file": "app/server.js", "text": "fs.writeFileSync(\"photos.json\", data);" }
+        ],
+        "alternativeInterpretation": "",
+        "missingContext": "",
+        "consequence": "HIGH",
+        "manualTest": { "steps": ["Upload a photo.", "Restart the server.", "List photos."], "expected": "The photo is still listed." }
+      }
+    ]
+  },
+  "not_verifiable_with_real_quote": {
+    "verdicts": [
+      {
+        "claimId": "c5",
+        "verdict": "NOT_VERIFIABLE",
+        "explanation": "The route exists but auth may live elsewhere.",
+        "quotes": [{ "file": "app/server.js", "text": "app.get(\"/api/photos\", (req, res) => {" }],
+        "alternativeInterpretation": "",
+        "missingContext": "Any middleware registered before this route.",
+        "consequence": "HIGH",
+        "manualTest": { "steps": ["Log out and open /api/photos."], "expected": "Access denied." }
+      }
+    ]
+  },
+  "id_bookkeeping": {
+    "verdicts": [
+      {
+        "claimId": "ghost",
+        "verdict": "SUPPORTED",
+        "explanation": "A claim the user never confirmed.",
+        "quotes": [{ "file": "app/server.js", "text": "app.get(\"/api/photos\", (req, res) => {" }],
+        "alternativeInterpretation": "",
+        "missingContext": "",
+        "consequence": "NONE",
+        "manualTest": { "steps": ["n/a"], "expected": "" }
+      },
+      {
+        "claimId": "c1",
+        "verdict": "NOT_VERIFIABLE",
+        "explanation": "First verdict for c1 wins.",
+        "quotes": [],
+        "alternativeInterpretation": "",
+        "missingContext": "",
+        "consequence": "NONE",
+        "manualTest": { "steps": ["Upload a 3 MB photo."], "expected": "Rejected." }
+      },
+      {
+        "claimId": "c1",
+        "verdict": "SUPPORTED",
+        "explanation": "Duplicate verdict must be ignored.",
+        "quotes": [{ "file": "app/upload.js", "text": "  if (file.size > MAX_UPLOAD_BYTES) {" }],
+        "alternativeInterpretation": "",
+        "missingContext": "",
+        "consequence": "NONE",
+        "manualTest": { "steps": ["Upload a 3 MB photo."], "expected": "Rejected." }
+      }
+    ]
+  },
+  "indic_scripts": {
+    "verdicts": [
+      {
+        "claimId": "c4",
+        "verdict": "SUPPORTED",
+        "explanation": "A Tamil and a Hindi upload label exist.",
+        "quotes": [
+          { "file": "app/i18n.js", "text": "    ta: \"புகைப்படத்தைப் பதிவேற்றவும்\"," },
+          { "file": "app/i18n.js", "text": "    hi: \"चिकित्सक दृश्य (अंग्रेज़ी)\"," }
+        ],
+        "alternativeInterpretation": "",
+        "missingContext": "",
+        "consequence": "NONE",
+        "manualTest": { "steps": ["Switch to Tamil."], "expected": "The upload button is in Tamil." }
+      }
+    ]
+  }
+}

@@ -8,7 +8,20 @@ Branch `redesign/metal` (local only: no remote, nothing pushed or deployed).
 | 1 | Obsidian Titanium colour tokens, sapphire focus, deck typefaces | `84d49e0` | Completed and committed |
 | 2 | Per-step metal finishes on cards, panels, tiles and rows | `3d98909` | Completed and committed |
 | 3 | Metallic hero artwork behind each step | `ad35e23` | Completed and committed (approved 29 Oct 2026) |
-| 4 | Remaining visual polish (seven approved items) | not committed (starts from `ad35e23`) | **Awaiting your visual review** |
+| 4 | Remaining visual polish (seven approved items) | `005d50a` | Completed and committed (approved 29 Oct 2026) |
+| 5 | Not yet scoped | starts from `005d50a` | Waiting for scope approval |
+
+## Phase 5 — starting checkpoint
+
+Phase 5 starts from commit `005d50a` (Phase 4) on `redesign/metal`. Its scope has not been
+approved yet; no Phase 5 work has begun.
+
+## QA screenshots (all phases)
+
+The Phase 3 and Phase 4 QA screenshots remain on this machine only, in `docs/redesign/phase3/`
+(13 files, about 8.1 MB) and `docs/redesign/phase4/` (19 files, about 15 MB). Neither folder is in
+any commit: both are listed in `.git/info/exclude`, which applies only to this local clone
+(`.gitignore` is unchanged), so anyone else checking out the branch will not have them.
 
 ## Phase 4 — remaining visual polish (29 Oct 2026)
 
@@ -64,6 +77,13 @@ Intentional: production layout, navigation, wording and the Evidence vertical li
 wordmark (left for the Velora rebrand); prototype-only pages and controls; the small mobile
 sculpture. Not addressed: the prototype's exhibit headers and highlighted cited lines in code
 blocks, its verdict meter and ruling dial (these need new content or structure).
+
+### Approval
+
+Phase 4 was approved after visual review and committed locally as `005d50a` on 29 Oct 2026, with
+exactly the seven files listed above. This record was then updated in a separate,
+documentation-only commit ("Docs: record Phase 4 completion"). Nothing has been pushed or
+deployed, and no remote exists.
 
 ## Phase 3 — metallic hero artwork (29 Oct 2026)
 

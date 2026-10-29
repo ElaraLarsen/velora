@@ -4,10 +4,16 @@ Branch `redesign/metal` (local only: no remote, nothing pushed or deployed).
 
 | Phase | What | Commit | Status |
 |---|---|---|---|
-| 0 | Baseline: Git safety review, tests, build, screenshots | `bff3f73` | Done |
-| 1 | Obsidian Titanium colour tokens, sapphire focus, deck typefaces | `84d49e0` | Done |
-| 2 | Per-step metal finishes on cards, panels, tiles and rows | `3d98909` | Done |
-| 3 | Metallic hero artwork behind each step | not committed | **Awaiting your visual review** |
+| 0 | Baseline: Git safety review, tests, build, screenshots | `bff3f73` | Completed and committed |
+| 1 | Obsidian Titanium colour tokens, sapphire focus, deck typefaces | `84d49e0` | Completed and committed |
+| 2 | Per-step metal finishes on cards, panels, tiles and rows | `3d98909` | Completed and committed |
+| 3 | Metallic hero artwork behind each step | `ad35e23` | Completed and committed (approved 29 Oct 2026) |
+| 4 | Not yet scoped | starts from `ad35e23` | Waiting for scope approval |
+
+## Phase 4 — starting checkpoint
+
+Phase 4 starts from commit `ad35e23` (Phase 3) on `redesign/metal`. Its scope has not been
+approved yet; no Phase 4 work has begun.
 
 ## Phase 3 — metallic hero artwork (29 Oct 2026)
 
@@ -89,11 +95,19 @@ That is existing production behaviour, not a regression; the runs were repeated 
 reset. Runs that inject scripts into the page also logged blocked Vite hot-reload WebSocket
 connections; those come from the test browser, not the app.
 
-### Screenshots (`docs/redesign/phase3/`, local only, not committed)
+### QA screenshots (`docs/redesign/phase3/`, local only, not committed)
+
+Thirteen PNG files, about 8.1 MB, kept on this machine for review. They are not in any commit:
+the folder is listed in `.git/info/exclude`, which applies only to this local clone (`.gitignore`
+is unchanged). Anyone else checking out the branch will not have them.
 
 - `phase3-before-after.png` — prototype, Phase 2 and Phase 3 side by side, all five steps, 1440×900.
-- `desktop-<step>.png` — Phase 3 at 1440×900. `mobile-<step>.png` — Phase 3 at 375×812.
+- `desktop-<step>.png` (five) — Phase 3 at 1440×900. `mobile-<step>.png` (five) — Phase 3 at 375×812.
 - `phase3-mobile.png` — the five mobile screens together. `css-fallback.png` — WebGL disabled.
+
+`desktop-prove.png` and `phase3-before-after.png` were recaptured after the champagne sheet was
+moved right; the other screenshots are from the run before that change (Prove at 375 px was
+confirmed pixel-identical afterwards). All were taken in forced demo mode with reduced motion.
 
 ### Remaining differences from the prototype
 
@@ -112,5 +126,7 @@ connections; those come from the test browser, not the app.
 
 ### Approval
 
-Phase 3 is not committed. Waiting for your visual review and explicit approval before committing
-or starting Phase 4.
+Phase 3 was approved after visual review and committed locally as `ad35e23` on 29 Oct 2026, with
+exactly the eight files listed above. This record was then updated in a separate,
+documentation-only commit ("Docs: record Phase 3 completion"). Nothing has been pushed or
+deployed, and no remote exists.

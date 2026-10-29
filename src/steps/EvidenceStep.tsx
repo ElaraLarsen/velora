@@ -163,7 +163,7 @@ function VerdictCard({
         {v.evidence.length > 0 && (
           <section className="space-y-3" aria-label="Verified evidence">
             <div className="flex items-center justify-between gap-2">
-              <h3 className="font-mono text-xs uppercase tracking-wider text-ink-2">
+              <h3 className="text-[0.78rem] font-bold uppercase tracking-[0.16em] text-eyebrow">
                 Verified evidence
               </h3>
               <span className="rounded-full bg-ok/10 px-2 py-1 font-mono text-[0.65rem] text-ok">
@@ -316,7 +316,7 @@ export function EvidenceStep({
 
       <section aria-label="Verdict summary">
         <div className="mb-3 flex items-center justify-between gap-3">
-          <h2 className="font-mono text-xs uppercase tracking-wider text-muted">
+          <h2 className="text-[0.78rem] font-bold uppercase tracking-[0.16em] text-eyebrow">
             Verification summary
           </h2>
           <span className="text-xs text-muted">
@@ -350,7 +350,7 @@ export function EvidenceStep({
 
       <section aria-label="Claim verdicts" className="space-y-4 sm:space-y-5">
         <div className="flex items-center justify-between gap-3">
-          <h2 className="font-mono text-xs uppercase tracking-wider text-muted">
+          <h2 className="text-[0.78rem] font-bold uppercase tracking-[0.16em] text-eyebrow">
             Claim-by-claim results
           </h2>
           <span className="text-xs text-muted">

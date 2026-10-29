@@ -180,6 +180,7 @@ export default function App() {
                       current ? "bg-ink text-paper" : available ? "text-ink hover:bg-paper-2" : "text-muted",
                     )}
                   >
+                    <span aria-hidden="true" className={`hw-dot hw-dot-${MATERIAL[s.n]}`} />
                     <span className="font-mono text-[0.7rem] tabular-nums opacity-70">0{s.n}</span>
                     <span className="font-medium">{s.label}</span>
                     {s.n === 3 && <Lock aria-hidden className={cx("ml-auto hidden size-3 lg:block", unlocked && "opacity-0")} />}

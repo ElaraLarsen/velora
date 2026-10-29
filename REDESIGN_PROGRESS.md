@@ -8,12 +8,62 @@ Branch `redesign/metal` (local only: no remote, nothing pushed or deployed).
 | 1 | Obsidian Titanium colour tokens, sapphire focus, deck typefaces | `84d49e0` | Completed and committed |
 | 2 | Per-step metal finishes on cards, panels, tiles and rows | `3d98909` | Completed and committed |
 | 3 | Metallic hero artwork behind each step | `ad35e23` | Completed and committed (approved 29 Oct 2026) |
-| 4 | Not yet scoped | starts from `ad35e23` | Waiting for scope approval |
+| 4 | Remaining visual polish (seven approved items) | not committed (starts from `ad35e23`) | **Awaiting your visual review** |
 
-## Phase 4 — starting checkpoint
+## Phase 4 — remaining visual polish (29 Oct 2026)
 
-Phase 4 starts from commit `ad35e23` (Phase 3) on `redesign/metal`. Its scope has not been
-approved yet; no Phase 4 work has begun.
+Starting checkpoint: `ad35e23` (Phase 3); documentation commit `e237d6d` on top. Approved scope:
+core items 1–5 plus optional items 6 and 7. Visual only: no logic, API, wording, test or
+configuration changes, no new dependencies.
+
+| # | Change | Files |
+|---|---|---|
+| 1 | Hedge words: the solid cream highlighter becomes a soft band in the page's highlight colour with a fine rule under the baseline; the words keep the body colour | `src/index.css` |
+| 2 | Primary buttons: 10 px corners, a glow in the material's colour, a light sheen on hover (none under reduced motion), a pressed state; height unchanged | `src/materials.css` |
+| 3 | Text fields (setup field, claim text, category menu, observation notes): recessed dark wells with a light rim; focus stays sapphire; the ruled explanation surface is unchanged | `src/materials.css` |
+| 4 | Section headings ("Verification summary", "Claim-by-claim results", "Verified evidence", "Findings to test"): bold tracked sans in the label colour instead of grey monospace; wording unchanged | `src/steps/EvidenceStep.tsx`, `src/steps/ProveStep.tsx` (class strings only) |
+| 5 | Verdict stamps: tinted badges with a bold label, same colours and icons. Scoped to verdict stamps only (`.stamp.rounded-sm`, used only by `VerdictStamp`); the base `.stamp` rule is unchanged, so the header mode label (demo and live) and the claim-status and file-count labels keep their original style | `src/index.css` |
+| 6 | Optional: on wide screens (1024 px and up) each step heading starts lower, as in the prototype, so the sculpture has room above the first card. The room follows the viewport height like the prototype's header: 100 px at 900 px tall, about 40 px at 768, none on short screens. Phones unchanged | `src/artwork/artwork.css` |
+| 7 | Optional: a small sphere of each step's metal beside its number in the step navigation, hidden from assistive technology | `src/App.tsx` (one decorative `<span>`), `src/materials.css` |
+
+### Checks actually run
+
+- Typecheck: passed. Tests: 6 files, 81/81 passed. Production build: passed (CSS 59.12 kB, JS 395.94 kB).
+- Phase 2 surface contrast: 1,135/1,135 pass. New pairings: verdict badges on verdict headers and
+  panels, and every text colour on the hedge band, 40/40 pass after one correction (the first
+  hedge band at 40% strength failed 8 of 40, lowest 2.82:1; reduced to 20% plus a rule below the
+  baseline, lowest 5.06:1).
+- Heading text over the artwork on real pixels after the headings moved: 10.53:1 or better at
+  1440 and 375 (unchanged from Phase 3).
+- Demo-mode walkthroughs of all five steps at 1440×900 and 375×812: 0 console errors, 0 failed
+  requests, 0 px horizontal overflow.
+- Step navigation: accessible names unchanged ("01 Load" … "05 Prove"), dots `aria-hidden`,
+  current and disabled states unchanged.
+- Primary button: disabled stays at 40% opacity; the hover sheen crosses only when motion is
+  allowed; keyboard focus ring is sapphire.
+- Header mode label, demo and live (live simulated in the test browser by answering
+  `/api/status` with `mode: "live"`; no AI provider was called), at 1440 and 375: monospace,
+  weight 500, 1 px border, 3 px corners, no fill — the same rule as before Phase 4. Claim-status
+  and file-count labels likewise; verdict badges on Evidence use the new tinted style.
+- Heading spacing against the prototype (step label top / first card top):
+  - 1440×900: production 212 / 417–504 px; prototype 215–245 / 442 px.
+  - 1024×768: production 151 / 356–443 px (a fixed 100 px gave 212 / 417–504); prototype
+    120–217 / 397 px. Hence the height-based spacing.
+
+### QA screenshots (`docs/redesign/phase4/`, local only, not committed)
+
+19 PNG files, about 15 MB, excluded through `.git/info/exclude` like Phase 3's:
+`phase4-before-after.png` (prototype, Phase 3, Phase 4 for all five steps at 1440×900),
+`desktop-<step>.png` and `desktop-<step>-full.png`, `mobile-<step>.png`, `phase4-mobile.png`,
+`hedge-marks.png` and `button-hover.png`. Full-page captures show a seam where the fixed artwork
+canvas ends; that is how the stitched capture renders a fixed layer, not something on the page.
+
+### Remaining differences after Phase 4
+
+Intentional: production layout, navigation, wording and the Evidence vertical list; the Handwave
+wordmark (left for the Velora rebrand); prototype-only pages and controls; the small mobile
+sculpture. Not addressed: the prototype's exhibit headers and highlighted cited lines in code
+blocks, its verdict meter and ruling dial (these need new content or structure).
 
 ## Phase 3 — metallic hero artwork (29 Oct 2026)
 

@@ -73,6 +73,14 @@
 .hw-step-head {
   position: relative;
 }
+/* On wide screens the heading starts lower, as in the prototype, so the sculpture has room above
+   the first card instead of being covered by it. Like the prototype's header, the room follows the
+   viewport height: 100 px at 900 px tall and above, less on shorter screens (about 40 px at 768). */
+@media (min-width: 1024px) {
+  .hw-step-head {
+    margin-top: clamp(0px, calc(46vh - 314px), 6.25rem);
+  }
+}
 .hw-step-head::before {
   content: "";
   position: absolute;

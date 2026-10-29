@@ -87,17 +87,19 @@ body {
   border-radius: 4px;
 }
 
-/* Highlighter-pen mark for hedge words. */
+/* Hedge words: a champagne band along the lower part of the line; the words keep the body colour. */
 .marker {
-  background: linear-gradient(transparent 12%, var(--marker) 12%, var(--marker) 88%, transparent 88%);
-  color: var(--marker-ink);
-  padding: 0 0.12em;
-  border-radius: 2px;
+  /* A soft band behind the lower half (kept at 20% so every text colour keeps 4.5:1) and a crisper
+     rule below the baseline, where it only meets descenders. */
+  background: linear-gradient(transparent 58%, color-mix(in srgb, var(--highlight) 20%, transparent) 58%, color-mix(in srgb, var(--highlight) 20%, transparent) 89%, color-mix(in srgb, var(--highlight) 60%, transparent) 89%, color-mix(in srgb, var(--highlight) 60%, transparent) 95%, transparent 95%);
+  color: inherit;
+  padding: 0 0.04em;
+  border-radius: 1px;
   box-decoration-break: clone;
   -webkit-box-decoration-break: clone;
 }
 
-/* Rubber-stamp verdict label. */
+/* Rubber-stamp label (header mode, claim status, file count). */
 .stamp {
   font-family: var(--font-mono);
   font-size: 0.68rem;
@@ -109,6 +111,18 @@ body {
   padding: 0.18rem 0.45rem;
   line-height: 1;
   white-space: nowrap;
+}
+
+/* Verdict badges only: a soft tint of the verdict colour with a bold label. VerdictStamp (ui.tsx)
+   is the only stamp with rounded-sm, so the header and status labels keep the style above. */
+.stamp.rounded-sm {
+  font-family: var(--font-sans);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  border: 1px solid color-mix(in srgb, currentColor 60%, transparent);
+  border-radius: 4px;
+  background: color-mix(in srgb, currentColor 12%, transparent);
 }
 
 /* Faint ruled-paper texture behind the main column. */
@@ -256,7 +270,8 @@ textarea {
     touch-action: manipulation;
   }
 
-  .stamp {
+  .stamp,
+  .stamp.rounded-sm {
     font-size: 0.6rem;
     letter-spacing: 0.08em;
   }

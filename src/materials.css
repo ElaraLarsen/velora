@@ -325,16 +325,60 @@
     0 20px 40px -18px var(--c-shadow);
 }
 
-/* Primary buttons: a bar of the page's metal. */
+/* Primary buttons: a glossy bar of the page's metal with a soft glow in its colour; a sheet of
+   light crosses it on hover (not under reduced motion). The sheen sits under the label. */
 [data-material] .bg-ink.text-paper:not([aria-current]) {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  border-radius: 10px;
   background: linear-gradient(180deg, var(--m-btn-top), var(--m-btn-bottom));
   color: var(--m-btn-text);
   border-color: transparent;
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.35),
-    inset 0 -1px 0 rgba(0, 0, 0, 0.35),
-    0 10px 22px -14px var(--c-shadow),
-    0 2px 4px -1px rgba(0, 0, 0, 0.5);
+    inset 0 1px 0 rgba(255, 255, 255, 0.45),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.3),
+    0 0 0 1px rgba(0, 0, 0, 0.35),
+    0 10px 26px -14px var(--m-btn-top);
+}
+[data-material] .bg-ink.text-paper:not([aria-current])::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: linear-gradient(105deg, transparent 35%, rgba(255, 255, 255, 0.3) 50%, transparent 65%);
+  transform: translateX(-120%);
+}
+@media (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  [data-material] .bg-ink.text-paper:not([aria-current]):not(:disabled):hover::after {
+    transform: translateX(120%);
+    transition: transform 700ms cubic-bezier(0.2, 0.7, 0.1, 1);
+  }
+}
+[data-material] .bg-ink.text-paper:not([aria-current]):not(:disabled):hover {
+  opacity: 1;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.6),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.3),
+    0 0 0 1px color-mix(in srgb, var(--m-btn-top) 70%, #fff),
+    0 12px 30px -14px var(--m-btn-top);
+}
+[data-material] .bg-ink.text-paper:not([aria-current]):not(:disabled):active {
+  box-shadow: inset 0 2px 7px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(0, 0, 0, 0.35);
+}
+
+/* Text fields: recessed wells in the page's metal; focus stays sapphire. The explanation's ruled
+   writing surface keeps its own look. */
+[data-material] :is(input:not([type]), input[type="text"], input[type="search"], input[type="email"], textarea, select):not(.ruled):not(.sr-only) {
+  border-radius: 10px;
+  border-color: color-mix(in srgb, var(--c-bevel) 45%, transparent);
+  background-color: color-mix(in srgb, var(--paper) 72%, #000);
+  box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.55), inset 0 -1px 0 color-mix(in srgb, var(--c-bevel) 35%, transparent);
+}
+[data-material] :is(input:not([type]), input[type="text"], input[type="search"], input[type="email"], textarea, select):not(.ruled):not(.sr-only):focus {
+  border-color: var(--focus);
+  box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.55), 0 0 0 3px color-mix(in srgb, var(--sapphire) 22%, transparent);
 }
 
 /* The current step: a quiet raised plate with the page accent along its edge. */
@@ -347,4 +391,22 @@
     inset 2px 0 0 var(--m-accent),
     inset 0 0 0 1px color-mix(in srgb, var(--m-accent) 32%, transparent),
     inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+/* Step navigation: a small sphere of each step's metal (decorative, hidden from assistive technology). */
+.hw-dot {
+  flex: none;
+  width: 10px;
+  height: 10px;
+  margin-right: -4px;
+  border-radius: 50%;
+  box-shadow: inset 0 -1px 2px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.12), 0 1px 3px rgba(0, 0, 0, 0.6);
+}
+.hw-dot-obsidian { background: radial-gradient(circle at 35% 30%, #f4f6f9 0 6%, #9aa3af 20%, #4a4f58 55%, #111215 100%); }
+.hw-dot-burgundy { background: radial-gradient(circle at 35% 30%, #fff1ee 0 6%, #e07080 20%, #c0384e 50%, #4a0f1c 100%); }
+.hw-dot-silver { background: radial-gradient(circle at 35% 30%, #ffffff 0 10%, #e6eaf0 28%, #8a9099 62%, #3e454e 100%); }
+.hw-dot-emerald { background: radial-gradient(circle at 35% 30%, #e3f1ea 0 6%, #7fc7b4 20%, #3e8c7e 50%, #0b2a20 100%); }
+.hw-dot-champagne { background: radial-gradient(circle at 35% 30%, #ffebc4 0 6%, #e7d2a6 22%, #c9a46a 52%, #4a3418 100%); }
+button:disabled .hw-dot {
+  opacity: 0.45;
 }

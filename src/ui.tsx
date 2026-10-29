@@ -60,7 +60,7 @@ export function StepHeading({
   lede?: ReactNode;
 }) {
   return (
-    <header className="mb-8 sm:mb-10">
+    <header className="hw-step-head mb-8 sm:mb-10">
       <Eyebrow>Step {index}</Eyebrow>
       <h1 className="mt-3 max-w-[22ch] font-serif text-[2.4rem] font-bold leading-[1.06] tracking-[-0.02em] text-ink sm:text-[3.33rem] [&_em]:font-normal [&_em]:text-highlight">
         {title}

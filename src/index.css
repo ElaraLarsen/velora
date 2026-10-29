@@ -1,5 +1,6 @@
 @import "tailwindcss";
 @import "./materials.css";
+@import "./artwork/artwork.css";
 /* The design prototype has its own stylesheet; keep its class names out of the app's CSS. */
 @source not "../prototype";
 

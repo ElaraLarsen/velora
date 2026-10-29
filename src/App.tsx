@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 import type { CheckedVerdict, ConfirmedClaim, SourceFile } from "../shared/types";
 import { reverifyVerdicts, summarize } from "../shared/verdictRules";
 import { ApiError, api, type ModeInfo } from "./api";
+import { HeroArtwork } from "./artwork/HeroArtwork";
+import type { MaterialId } from "./artwork/materials";
 import { ClaimsStep, type DraftClaim } from "./steps/ClaimsStep";
 import { EvidenceStep } from "./steps/EvidenceStep";
 import { ExplainStep } from "./steps/ExplainStep";
@@ -21,7 +23,7 @@ const STEPS: { n: Step; label: string }[] = [
 ];
 
 /** Each step is finished in its own metal (see materials.css). */
-const MATERIAL: Record<Step, string> = { 1: "obsidian", 2: "burgundy", 3: "silver", 4: "emerald", 5: "champagne" };
+const MATERIAL: Record<Step, MaterialId> = { 1: "obsidian", 2: "burgundy", 3: "silver", 4: "emerald", 5: "champagne" };
 
 function message(e: unknown): string {
   return e instanceof ApiError ? e.message : "Something went wrong. Try again.";
@@ -140,6 +142,7 @@ export default function App() {
 
   return (
     <div className="min-h-dvh" data-material={MATERIAL[step]}>
+      <HeroArtwork material={MATERIAL[step]} />
       <header className="sticky top-0 z-10 border-b border-rule bg-paper/90 backdrop-blur">
         <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-3 sm:px-6">
           <Wordmark />
@@ -160,7 +163,7 @@ export default function App() {
         </div>
       </header>
 
-      <div className="mx-auto grid max-w-7xl grid-cols-1 gap-8 px-4 pb-24 pt-8 sm:px-6 lg:grid-cols-[13rem_minmax(0,1fr)] lg:gap-14 lg:pt-14">
+      <div className="relative z-[1] mx-auto grid max-w-7xl grid-cols-1 gap-8 px-4 pb-24 pt-8 sm:px-6 lg:grid-cols-[13rem_minmax(0,1fr)] lg:gap-14 lg:pt-14">
         <nav aria-label="Steps" className="min-w-0 lg:sticky lg:top-24 lg:self-start">
           <ol className="flex gap-1 overflow-x-auto lg:flex-col lg:gap-0.5">
             {STEPS.map((s) => {

@@ -1,0 +1,105 @@
+/* The step's metal sculpture behind the interface (HeroArtwork.tsx). The canvas is opaque and
+   paints the page ground itself; the interface sits above it in its own layer (App.tsx). */
+
+.hw-artwork {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 700ms ease;
+}
+.hw-artwork.is-on {
+  opacity: 1;
+}
+.hw-artwork:not(.is-on) {
+  visibility: hidden;
+}
+
+/* Without WebGL: a CSS rendering of the same material, top right, fading out toward the content. */
+.hw-artwork-fallback {
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 0;
+  width: 62vw;
+  height: 64vh;
+  pointer-events: none;
+  -webkit-mask-image: radial-gradient(75% 85% at 75% 30%, #000 35%, transparent 75%);
+  mask-image: radial-gradient(75% 85% at 75% 30%, #000 35%, transparent 75%);
+}
+/* Obsidian Titanium: a turned dial, machined rings around a dark hub. */
+[data-material="obsidian"] .hw-artwork-fallback {
+  background:
+    radial-gradient(circle at 70% 42%, rgba(244, 246, 249, 0.28) 0 1.5%, transparent 4%),
+    repeating-radial-gradient(circle at 70% 42%, rgba(210, 218, 228, 0.1) 0 1px, transparent 1px 9px),
+    conic-gradient(from 210deg at 70% 42%, #1a1d22, #5a606a 12%, #1a1d22 26%, #0d0f12 50%, #3a3f47 70%, #1a1d22 86%, #1a1d22);
+  -webkit-mask-image: radial-gradient(circle at 70% 42%, #000 0 34%, transparent 35%);
+  mask-image: radial-gradient(circle at 70% 42%, #000 0 34%, transparent 35%);
+  opacity: 0.8;
+}
+/* Burgundy Lacquer: a deep wine slab under a clear coat, one window reflection. */
+[data-material="burgundy"] .hw-artwork-fallback {
+  background:
+    linear-gradient(100deg, transparent 52%, rgba(255, 241, 238, 0.35) 56%, rgba(255, 241, 238, 0.08) 60%, transparent 64%),
+    radial-gradient(60% 80% at 72% 30%, #a42a42 0%, #6e1427 40%, #2a0910 70%, transparent 85%);
+  opacity: 0.75;
+}
+/* Liquid Silver: polished chrome bars. */
+[data-material="silver"] .hw-artwork-fallback {
+  background:
+    linear-gradient(180deg, transparent 6%, #3e454e 6%, #f4f7fb 9%, #8a9099 13%, #22272e 17%, transparent 17%,
+      transparent 24%, #3e454e 24%, #ffffff 27%, #8a9099 31%, #22272e 35%, transparent 35%,
+      transparent 42%, #3e454e 42%, #e6eaf0 45%, #8a9099 49%, #22272e 53%, transparent 53%) right top / 46% 100% no-repeat;
+  opacity: 0.8;
+}
+/* Emerald Petrol: an emerald chrome sphere. */
+[data-material="emerald"] .hw-artwork-fallback {
+  background: radial-gradient(circle at 66% 30%, #e3f1ea 0, #8fd0bf 3%, #3e8c7e 12%, #1f4a3b 30%, #0a2219 44%, #04100b 47%, transparent 48%);
+  opacity: 0.8;
+}
+/* Champagne Metal: a brushed champagne sheet with soft vertical satin bands. */
+[data-material="champagne"] .hw-artwork-fallback {
+  background:
+    repeating-linear-gradient(90deg, rgba(255, 235, 196, 0.035) 0 1px, transparent 1px 3px),
+    linear-gradient(90deg, transparent 30%, #3a2c17 36%, #c9a46a 52%, #ffebc4 56%, #9a7a48 62%, #3a2c17 74%, transparent 82%);
+  opacity: 0.7;
+}
+
+/* Text-safe ground behind each step's heading, so the sculpture never competes with it. */
+.hw-step-head {
+  position: relative;
+}
+.hw-step-head::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: -56px 0 -32px -160px;
+  pointer-events: none;
+  background: linear-gradient(90deg,
+    transparent 0%,
+    color-mix(in srgb, var(--paper) 92%, transparent) 14%,
+    color-mix(in srgb, var(--paper) 86%, transparent) 60%,
+    color-mix(in srgb, var(--paper) 45%, transparent) 78%,
+    transparent 92%);
+  -webkit-mask-image: linear-gradient(180deg, transparent, #000 20%, #000 72%, transparent);
+  mask-image: linear-gradient(180deg, transparent, #000 20%, #000 72%, transparent);
+}
+.hw-step-head :is(h1, p) {
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.55), 0 0 28px color-mix(in srgb, var(--paper) 70%, transparent);
+}
+@media (max-width: 1023px) {
+  .hw-step-head::before {
+    inset: -40px -16px -24px -16px;
+    background: color-mix(in srgb, var(--paper) 84%, transparent);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hw-artwork {
+    transition: none;
+  }
+}

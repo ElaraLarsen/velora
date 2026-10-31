@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { LIMITS } from "./sourceFiles";
+import { LIMITS } from "./sourceFiles.js";
 
 export const CATEGORIES = ["data", "access", "failure", "cost", "secrets", "behavior"] as const;
 export const VERDICTS = ["SUPPORTED", "CONTRADICTED", "NOT_VERIFIABLE"] as const;

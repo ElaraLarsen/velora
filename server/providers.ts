@@ -1,6 +1,6 @@
-import { SAMPLE_CHECK_RESPONSE, SAMPLE_EXPLANATION, SAMPLE_EXTRACT_RESPONSE, isSampleProject } from "../shared/sample";
-import type { CheckRequest, ExtractRequest } from "../shared/schemas";
-import type { ClaimCategory } from "../shared/types";
+import { SAMPLE_CHECK_RESPONSE, SAMPLE_EXPLANATION, SAMPLE_EXTRACT_RESPONSE, isSampleProject } from "../shared/sample.js";
+import type { CheckRequest, ExtractRequest } from "../shared/schemas.js";
+import type { ClaimCategory } from "../shared/types.js";
 
 export type Stage = "extract" | "check";
 

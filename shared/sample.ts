@@ -1,6 +1,6 @@
 // A small sample project written for Handwave's demo mode. It is NOT a real user's app,
 // and findings on it must never be presented as real discoveries.
-import type { SourceFile } from "./types";
+import type { SourceFile } from "./types.js";
 
 export const SAMPLE_CONTEXT = "Supabase database, email login";
 

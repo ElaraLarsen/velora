@@ -1,4 +1,4 @@
-import { route } from "../server/router";
+import { route } from "../server/router.js";
 
 /** Adapts a Web-standard Request (Vercel Functions) to the shared router. */
 export async function handle(request: Request, path: string): Promise<Response> {

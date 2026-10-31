@@ -1,5 +1,5 @@
 import type { z } from "zod";
-import { spanInText } from "../shared/quoteVerifier";
+import { spanInText } from "../shared/quoteVerifier.js";
 import {
   CheckRequest,
   CheckResponse,
@@ -9,11 +9,11 @@ import {
   extractJsonSchema,
   parseModelJson,
 } from "../shared/schemas";
-import { validateSourceFiles } from "../shared/sourceFiles";
-import { applyVerdictRules, summarize } from "../shared/verdictRules";
-import { CHECK_SYSTEM, EXTRACT_SYSTEM, checkUserPrompt, extractUserPrompt } from "./prompts";
-import { ProviderError, type AiProvider, type StageInput } from "./providers";
-import type { RateLimiter } from "./rateLimit";
+import { validateSourceFiles } from "../shared/sourceFiles.js";
+import { applyVerdictRules, summarize } from "../shared/verdictRules.js";
+import { CHECK_SYSTEM, EXTRACT_SYSTEM, checkUserPrompt, extractUserPrompt } from "./prompts.js";
+import { ProviderError, type AiProvider, type StageInput } from "./providers.js";
+import type { RateLimiter } from "./rateLimit.js";
 
 export interface ApiResult {
   status: number;

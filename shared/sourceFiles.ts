@@ -1,4 +1,4 @@
-import type { SourceFile } from "./types";
+import type { SourceFile } from "./types.js";
 
 // TEMPORARY for the MedBridge kill test (2026-10-28): raised from 100_000 / 200_000.
 // Largest need measured: index.html 144,135 bytes; feature 3 set 244,052 bytes.

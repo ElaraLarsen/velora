@@ -1,6 +1,6 @@
-import type { AiVerdict } from "./schemas";
-import { verifyQuote } from "./quoteVerifier";
-import type { CheckedVerdict, ConfirmedClaim, SourceFile } from "./types";
+import type { AiVerdict } from "./schemas.js";
+import { verifyQuote } from "./quoteVerifier.js";
+import type { CheckedVerdict, ConfirmedClaim, SourceFile } from "./types.js";
 
 const EMPTY_TEST = { steps: [] as string[], expected: "" };
 

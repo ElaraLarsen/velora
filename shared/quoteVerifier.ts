@@ -1,5 +1,5 @@
 
-import type { QuoteCheck, QuoteLocation, SourceFile } from "./types";
+import type { QuoteCheck, QuoteLocation, SourceFile } from "./types.js";
 
 /** Quotes with fewer non-whitespace characters than this can match almost anywhere, so they don't count as evidence. */
 export const MIN_QUOTE_CHARS = 12;

@@ -1,6 +1,6 @@
-import { handleCheck, handleExtract, modeInfo, type ApiResult } from "./handlers";
-import { selectProvider, type ServerEnv } from "./providers";
-import { RateLimiter } from "./rateLimit";
+import { handleCheck, handleExtract, modeInfo, type ApiResult } from "./handlers.js";
+import { selectProvider, type ServerEnv } from "./providers.js";
+import { RateLimiter } from "./rateLimit.js";
 
 // 30 AI calls per IP per 10 minutes. Module-level so it survives between requests on a warm instance.
 const limiter = new RateLimiter(30, 10 * 60_000);

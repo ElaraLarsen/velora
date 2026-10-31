@@ -1,4 +1,4 @@
-import type { CheckedVerdict, ConfirmedClaim } from "./types";
+import type { CheckedVerdict, ConfirmedClaim } from "./types.js";
 
 export interface FixPromptInput {
   claim: ConfirmedClaim;

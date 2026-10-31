@@ -1,5 +1,5 @@
-import { cardById } from "../shared/cards";
-import type { CheckRequest, ExtractRequest } from "../shared/schemas";
+import { cardById } from "../shared/cards.js";
+import type { CheckRequest, ExtractRequest } from "../shared/schemas.js";
 
 export const EXTRACT_SYSTEM = `You turn a person's spoken explanation of one feature of their app into concrete, checkable claims.
 You never see the app's code, and you must not guess what the code does.

@@ -1,0 +1,10 @@
+# Never upload local secrets or tooling with a deployment.
+.env
+.env.*
+!.env.example
+.vercel
+.claude
+node_modules
+dist
+coverage
+*.log

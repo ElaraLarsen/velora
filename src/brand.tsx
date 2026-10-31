@@ -111,7 +111,26 @@ export function VeloraMark({ className = "" }: { className?: string }) {
  * The header brand. Deliberately not a link: Velora keeps the project in memory only, so
  * navigating to "/" would reload the page and discard the uploaded files and results.
  */
-export function VeloraBrand() {
+/** Each mode's promise, in the order the work happens. */
+export const TAGLINE: Record<"studio" | "hackathon", string> = {
+  studio: "Understand · Inspect · Verify · Improve",
+  hackathon: "Ideate · Plan · Build · Present · Ship",
+};
+
+/** Both taglines in one cell, cross-fading; the one for the other mode stays hidden from assistive tech. */
+export function Tagline({ mode, className = "" }: { mode: "studio" | "hackathon"; className?: string }) {
+  return (
+    <span className={`hw-tagline font-mono text-[0.58rem] font-[500] uppercase tracking-[0.13em] text-muted ${className}`}>
+      {(["studio", "hackathon"] as const).map((m) => (
+        <span key={m} aria-hidden={m !== mode} className={m === mode ? "opacity-100" : "opacity-0"}>
+          {TAGLINE[m]}
+        </span>
+      ))}
+    </span>
+  );
+}
+
+export function VeloraBrand({ mode = "studio" }: { mode?: "studio" | "hackathon" }) {
   return (
     <span className="inline-flex min-w-0 items-center gap-3">
       <VeloraMark className="size-10 shrink-0" />
@@ -121,12 +140,7 @@ export function VeloraBrand() {
           Velora
         </span>
 
-        <span
-          aria-hidden="true"
-          className="hidden border-l border-rule pl-2 font-mono text-[0.58rem] font-[500] uppercase tracking-[0.13em] text-muted min-[768px]:inline-block"
-        >
-          Ask · Ideate · Build · Verify · Ship
-        </span>
+        <Tagline mode={mode} className="hidden border-l border-rule pl-2 min-[768px]:grid" />
       </span>
     </span>
   );

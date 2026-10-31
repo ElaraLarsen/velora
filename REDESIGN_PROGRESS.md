@@ -9,7 +9,206 @@ Branch `redesign/metal` (local only: no remote, nothing pushed or deployed).
 | 2 | Per-step metal finishes on cards, panels, tiles and rows | `3d98909` | Completed and committed |
 | 3 | Metallic hero artwork behind each step | `ad35e23` | Completed and committed (approved 29 Oct 2026) |
 | 4 | Remaining visual polish (seven approved items) | `005d50a` | Completed and committed (approved 29 Oct 2026) |
-| 5 | Velora rebrand: resolve the uncommitted rebrand | committed as "Complete Velora rebrand cleanup" (starts from `085b2ce`) | Completed (approved 31 Oct 2026) |
+| 5 | Velora rebrand: resolve the uncommitted rebrand | `95d574c` | Completed and committed (approved 31 Oct 2026) |
+| 6 | Project store foundation (no visible change) | not committed (starts from `95d574c`) | Approved; not yet committed |
+| 7 | Studio Mode + Hackathon Mode | not committed (builds on the uncommitted Phase 6) | **Awaiting your review** |
+| 7.1 | Submission-night additions: Planner, Submission, Rubric, guided tour, UX fixes | not committed (builds on Phase 7) | **Awaiting your review** |
+| 7.2 | Hackathon materials, Stage 1: a metal and sculpture per section | not committed (builds on Phase 7.1) | **Awaiting your review** |
+| 8 | Mode identity, Velora Focus, deadline clocks, deploy readiness | not committed (builds on Phase 7.2) | **Awaiting your review** |
+
+## Phase 8 — mode identity, Velora Focus, deadlines, deploy readiness (31 Oct 2026)
+
+- **Header identity:**
+  - The taglines are "Understand · Inspect · Verify · Improve" in Studio and "Ideate · Plan · Build
+    · Present · Ship" in Hackathon.
+  - They cross-fade in one grid cell, so the header doesn't move (69 px; 65 px on phones). On phones
+    the tagline sits under the mode switch.
+- **Mode transition:**
+  - Content fades in for 220 ms after a deliberate switch, never on load.
+  - A screen reader announces the new mode.
+- **Sound:** an optional two-note Web Audio tone (about 260 ms). It's off by default, has a speaker
+  button, and plays only on a click of the mode switch.
+- **Velora Focus** (clock button in the header):
+  - Pomodoro, short break and long break, with start, pause, resume, reset and custom durations. A
+    long break is offered after four Pomodoros.
+  - The timer is computed from its end time, so it is correct in background tabs and after a refresh.
+  - Only sessions that run to the end are recorded.
+  - It shows statistics, a 7-day chart and history, plus Studio project activity or Hackathon
+    competition figures.
+- **Deadlines:**
+  - The official deadline, my deadline and an optional competition start are edited independently.
+  - Four-unit clocks (days, hours, minutes, seconds) show DEADLINE REACHED and never go negative.
+  - They appear in the Planner, Submission and Focus.
+- **Persistence** (`src/storage/local.ts`, validated, fails safe): focus data, sound preference and
+  the three dates are kept in this browser. Files, claims, evidence, tasks and the checklist stay in
+  memory as before.
+- **Deploy readiness** in Submission: detection only, no deployment. See
+  `docs/DEPLOYMENT_ARCHITECTURE.md`.
+
+Checks:
+- Typecheck passed. Tests: 168/168 (146 before, plus 22). Build passed; JS is 552 kB, over Vite's
+  500 kB advisory, and up from 506 kB because the browser now uses zod for stored-data validation.
+- Contrast: 3159/3159.
+- Studio A/B against Phase 7.2: at 1440×900 and 1024×768 the page body is pixel-identical and only
+  the header differs. At 375 px the content moves down 23 px for the tagline row, with identical text.
+- Browser QA at all three widths: 0 console errors, 0 failed requests and 0 overflow. Covered:
+  focus timer, deadlines, persistence after reload, corrupt storage, keyboard, focus trap and
+  reduced motion.
+
+
+## Phase 7.2 — Hackathon materials, Stage 1 (31 Oct 2026)
+
+Implements the surfaces and sculptures from `docs/HACKATHON_MATERIALS.md`. Stages 2 (mode transition
+and sound) and 3 (per-page compositions) and Pitch Studio's Rose Gold are not started.
+
+- `src/materials.css`: seven new material blocks (graphite, titanium, copper, pearl, violet, glacier,
+  tungsten) and their nav dots. Studio's five blocks and the status colours are unchanged.
+- `src/artwork/materials.ts`, `src/artwork/liquid.ts`: seven sculpture entries; shader forms 7–12
+  added to `shape` and `relief`, one oxide-tint branch for form 8, and a wide-screen offset for
+  form 6. Studio's forms 1–5 are unchanged.
+- `src/artwork/artwork.css`: a CSS fallback for each new material.
+- `src/hackathon/HackathonView.tsx`: `SECTION_MATERIAL` and a metal dot per section in the nav.
+  `src/App.tsx` picks the material from the current section in Hackathon Mode.
+
+Checks: typecheck passed; tests 146/146; build passed (JS 506 kB, over Vite's 500 kB advisory);
+contrast 3159/3159 pairs pass. Studio at 1440, 1024 and 375 px: text and geometry identical to before;
+pixels identical except capture noise in the Load and Explain sculptures at 375 px, which is the
+same between two runs of unchanged code. Hackathon sections: correct material each, no overflow,
+no console errors, at all three widths. On phones the sculptures appear as a corner accent behind the
+mode switch, the same framing as Studio's.
+
+## Phase 7.1 — submission-night additions (31 Oct 2026)
+
+Added on request before the submission deadline. Everything stays in the same in-memory project store;
+nothing is persisted, sent anywhere or shared between devices.
+
+| Change | Files |
+|---|---|
+| Planner: official submission deadline (entered by the user, read in the browser's time zone, shown with UTC), live countdown, tasks with Not started / In progress / Completed, own deadlines, edit and delete, milestones, Solo/Team with members and owners, overdue / due-today / after-submission markers, progress overall and per member, by-milestone and calendar views, in-app reminders on every Hackathon section | `src/hackathon/Planner.tsx`, `src/hackathon/analysis/planner.ts` |
+| Submission: configurable deliverables checklist (nine defaults, removable, custom items, link or note per item), readiness summary, time left | `src/hackathon/Guardian.tsx`, `src/hackathon/analysis/guardian.ts` |
+| Rubric: criteria, weights that must total 100%, 0–10 self-scores, weighted points, estimated total, weak areas, suggestions grounded only in verified claims, the checklist and the plan; labelled as the user's estimate, never a judge score | `src/hackathon/Rubric.tsx`, `src/hackathon/analysis/rubric.ts` |
+| Report: adds a "Plan and submission" section, labelled as user-entered; the report now opens without files | `src/hackathon/analysis/report.ts`, `src/hackathon/HackathonView.tsx` |
+| Guided tour: 16 short stops through both modes, all five Studio steps and all eight Hackathon sections; skip, back, restart, Escape; reopened from the compass button; first-visit invitation (in the page on phones, floating on wider screens) | `src/tour/Tour.tsx`, `src/App.tsx` |
+| Store: `planner`, `checklist`, `rubric` and three updater actions; kept across mode switches, file changes and restart | `src/project/types.ts`, `src/project/reducer.ts` |
+| UX fixes: "Downloaded" feedback on the report button; the browser asks before a refresh or close discards a loaded project; the Hackathon empty state explains each section and points to the sample and to planning | `src/hackathon/Report.tsx`, `src/App.tsx`, `src/hackathon/HackathonView.tsx` |
+
+Checks: typecheck passed; 146 of 146 tests passed (127 earlier plus 19 in `tests/planning.test.ts`); build passed
+(JS 501 kB, just over Vite's 500 kB advisory). Browser runs in demo mode at 1440, 1024 and 375 px: tour, planner,
+checklist, rubric, report and the original Studio → Hackathon walkthrough, with no console errors, failed requests or
+horizontal overflow.
+
+Limitations: reminders work only while Velora is open in the tab (no system notifications); team names are local
+names, not accounts; refreshing discards everything; the rubric's suggestions match criterion names by keyword.
+
+## Phase 7 — Studio Mode + Hackathon Mode (31 Oct 2026)
+
+Builds on the Phase 6 store, which is approved but not yet committed. A copy of the eight Phase 6
+files was kept before Phase 7 began, so Phase 6 can still be committed on its own.
+
+A Studio | Hackathon switch in the header (its own full-width row on phones). Both modes work on
+the one shared project: switching changes only `project.view` (mode and Hackathon section), never the
+files, context, claims, verdicts, findings or Studio's step and progress. No page reload.
+
+Hackathon Mode has five sections, each computed in the browser from the shared project. No new API,
+no AI call, no new dependency; nothing is uploaded or verified twice:
+- Readiness: completeness, documentation among the uploaded files, unverified claims, evidence
+  gaps, demo checklist.
+- Tech stack: languages, frameworks, services, data tools and environment variable names from file
+  types, imports, package manifests and a few code patterns, each with its file and line. Anything
+  named only in the setup text is an assumption.
+- Claim audit: Studio's claims labelled from the existing verdicts: Verified, Contradicted, Potential
+  risk, Assumption, Unknown. Only quotes the engine verified are shown.
+- Judge Q&A: a fixed set of questions across architecture, technology choices, security,
+  scalability, feasibility, differentiation, limitations and failure scenarios. Answers are assembled
+  from verified evidence, claims and Prove rulings; anything else is marked unanswered.
+- Report: all of the above as Markdown (download or copy), with demo results labelled.
+
+Studio's code lock is kept: until the claims are checked, Hackathon shows file names and line
+numbers but no code lines. Hackathon uses the prototype's Sapphire Chrome material and sculpture.
+
+Files: new `src/modes/ModeSwitch.tsx`, `src/hackathon/*` (shell, five sections, shared parts,
+tones) and `src/hackathon/analysis/*` (stack, audit, readiness, judge, report);
+`tests/hackathon.test.ts` (22 tests). Changed `src/App.tsx`, `src/project/types.ts` and
+`src/project/reducer.ts` (view state), `src/materials.css` (Sapphire, the switch, the
+current-section plate), `src/artwork/materials.ts` and `src/artwork/artwork.css` (Sapphire sculpture
+and fallback).
+
+### Checks actually run
+
+- Typecheck: passed. Tests: 127/127 (the 105 from Phases 1–6 unchanged, plus 22). Build: passed
+  (CSS 63.3 kB, JS 448.1 kB; JS +47 kB). Surface contrast: 1,498/1,498 including Sapphire.
+- Browser, demo mode, at 1440×900, 1024×768 and 375×812: Hackathon before files (empty state, back
+  to Studio Load); Tech stack while locked shows no code lines; Studio through a Prove ruling; all
+  five sections; the Markdown download (`velora-report.md`, demo label and all six sections); back
+  to Studio on the same step with the same observation and ruling; twelve more switches; three files
+  still loaded; same document throughout (no reload). 0 console errors, 0 failed requests, 0
+  overflow on every screen.
+- Mobile switch labels over the artwork, measured on real pixels on every Studio step and in
+  Hackathon: 6.5:1 or better.
+- Studio A/B against the Phase 6 code (served from a scratch copy on port 5176, then removed), at
+  1440×900 and 1024×768: identical geometry, navigation, text and state on all five steps, including
+  after a ruling and moving between steps; header height identical (68.64 px); pixels below the header
+  identical on Explain, Claims, Evidence and Prove (Load differs only inside the WebGL dial). The
+  header differs only by the new switch. At 375 px the switch's own row moves Studio's content down
+  76 px; nothing else changes.
+
+### Limitations
+
+- Judge questions come from a fixed set, and answers are assembled, not written by an AI.
+  AI-generated questions are not part of this phase.
+- Stack detection reads one line at a time: a call split across lines (`supabase` on one line,
+  `.from(...)` on the next) is not matched. It never reads files that were not uploaded.
+- Readiness and documentation checks see only the uploaded files (at most 12, 150 KB each, 250 KB in
+  total), so "missing" means "not uploaded".
+- Memory only: refreshing or closing Velora discards the project, including Hackathon results; the
+  report says so and can be downloaded.
+- Deferred, as agreed: security scanning, bug identification, pitch generation, persistent storage,
+  whole-repository analysis.
+
+QA screenshots: `docs/redesign/phase7/` (26 files, about 15 MB), local only, excluded through
+`.git/info/exclude` like Phases 3 and 4.
+
+## Phase 6 — project store foundation (31 Oct 2026)
+
+The Studio workflow's project state moved from 13 `useState` calls in `src/App.tsx` into one
+in-memory project store, so later modes can share the same files and results. No visible or
+behavioural change; no new API, persistence, mode switch or Hackathon feature.
+
+- `src/project/types.ts`: `Project` (id, files, usingSample, context, filesDigest, studio) and
+  `StudioState` (step, reached, card, explanation, claims, unexplained, checkedClaims, verdicts,
+  verdictsDigest, findings).
+- `src/project/reducer.ts`: `createProject` and `projectReducer`; each action is one of the state
+  updates the Studio screen already made, applied in the same order. Two hardening rules (added at
+  review): `setFiles` clears every result from the old files in the same update (claims,
+  unexplained phrases, checked claims, verdicts, `verdictsDigest`, findings; `reached` capped at
+  step 2; explanation and question card kept), and `setCheckResult` carries the fingerprint of the
+  files the check was sent, captured when it started, and is ignored if the project's files have
+  changed since.
+- `src/project/digest.ts`: a short, synchronous fingerprint of the file set (not a security hash).
+  Verdicts record the fingerprint of the files they were checked against.
+- `src/project/store.tsx`: `ProjectProvider` (React `useReducer`) and `useProject`. Memory only:
+  refreshing or closing the page discards the project, as before.
+- `src/App.tsx` reads the project from the store and dispatches actions; request state (busy,
+  error) and the demo/live status stay local. The evidence check takes the fingerprint of the files
+  it sends before the request starts, and on return applies the result and moves to Evidence only
+  if the project still holds those files. `src/main.tsx` wraps the app in `ProjectProvider`.
+- `tests/projectStore.test.ts`: 24 tests, including a file change while a check is in flight.
+
+### Checks actually run
+
+- Typecheck: passed. Tests: 105/105 (the 81 existing, unchanged, plus 24 new). Build: passed; the
+  CSS bundle is byte-identical to Phase 5.
+- A/B against the committed Phase 5 code (`95d574c`, extracted with `git archive` to a scratch
+  folder and served on port 5176, then removed): the same walkthrough at 1440×900, 1024×768 and
+  375×812 gave identical element geometry, text and state on all five steps, including after
+  recording a Prove ruling and moving Evidence → Claims → Load → Explain → Prove (the ruling, the
+  observation and the explanation all kept). Screenshots pixel-identical on Explain, Claims,
+  Evidence and Prove; Load differs only inside the WebGL dial, which varies between runs of the
+  same code.
+- File change after a full check, A/B against Phase 5: removing a file on Load re-locks Claims,
+  Evidence and Prove, keeps Load and Explain open, keeps the explanation and the chosen question
+  card, and leaves two files listed: identical in both versions (rerun after the hardening).
+- 0 console errors, 0 failed requests, 0 horizontal overflow in every run.
 
 ## Phase 5 — Velora rebrand (31 Oct 2026)
 

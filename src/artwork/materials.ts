@@ -5,10 +5,27 @@
 //   3 Liquid Silver       polished chrome bars
 //   4 Emerald Petrol      emerald chrome sphere
 //   5 Champagne Metal     brushed champagne sheet
+//   0 Sapphire Chrome     automotive body panel (Hackathon: Readiness)
+// The other Hackathon sections (docs/HACKATHON_MATERIALS.md):
+//   7 Anodised Graphite, 8 Heat-Tinted Titanium, 9 Burnished Copper, 10 Platinum Pearl,
+//   6 Violet Anodised, 11 Glacier Chrome, 12 Tungsten
 
 import type { Material } from "./liquid";
 
-export type MaterialId = "obsidian" | "burgundy" | "silver" | "emerald" | "champagne";
+export type MaterialId =
+  | "obsidian"
+  | "burgundy"
+  | "silver"
+  | "emerald"
+  | "champagne"
+  | "sapphire"
+  | "graphite"
+  | "titanium"
+  | "copper"
+  | "pearl"
+  | "violet"
+  | "glacier"
+  | "tungsten";
 
 export const SCULPTURES: Record<MaterialId, Material> = {
   obsidian: {
@@ -67,6 +84,20 @@ export const SCULPTURES: Record<MaterialId, Material> = {
     coat: 0.9,
     mode: 4,
   },
+  sapphire: {
+    tint: "#2F6BFF",
+    base: "#0A1E5A",
+    envTop: "#1A4BC8",
+    envBottom: "#02040C",
+    key: "#E8F1FF",
+    rim: "#4FD3FF",
+    bgA: "#03060F",
+    bgB: "#0A1838",
+    metal: 1,
+    rough: 0.04,
+    coat: 0,
+    mode: 0,
+  },
   champagne: {
     tint: "#C9A46A",
     base: "#3A2C17",
@@ -81,4 +112,11 @@ export const SCULPTURES: Record<MaterialId, Material> = {
     coat: 0,
     mode: 5,
   },
+  graphite: { tint: "#6F84A3", base: "#14181F", envTop: "#4A5568", envBottom: "#05070A", key: "#EEF3FA", rim: "#9FB4D0", bgA: "#05070A", bgB: "#10141B", metal: 1, rough: 0.16, coat: 0, mode: 7 },
+  titanium: { tint: "#8A6BD0", base: "#1A1430", envTop: "#3A4FB0", envBottom: "#06040C", key: "#FFF4DC", rim: "#D9B56A", bgA: "#07050D", bgB: "#161026", metal: 1, rough: 0.08, coat: 0, mode: 8 },
+  copper: { tint: "#D9824F", base: "#2A1408", envTop: "#B8643A", envBottom: "#140804", key: "#FFE6D2", rim: "#F2C1A0", bgA: "#0A0503", bgB: "#1E0E07", metal: 1, rough: 0.14, coat: 0, mode: 9 },
+  pearl: { tint: "#ECEAF2", base: "#5A5C64", envTop: "#E4E6EC", envBottom: "#4A4B52", key: "#FFF8EE", rim: "#FFF1E0", bgA: "#0B0B0D", bgB: "#1B1C20", metal: 0.6, rough: 0.2, coat: 1, mode: 10 },
+  violet: { tint: "#B04CE0", base: "#160A2E", envTop: "#4A2A9A", envBottom: "#05020C", key: "#F4E9FF", rim: "#6C3FD8", bgA: "#06030E", bgB: "#140A2A", metal: 1, rough: 0.05, coat: 0, mode: 6 },
+  glacier: { tint: "#9EE6F5", base: "#0B2A36", envTop: "#6CC4DC", envBottom: "#03121A", key: "#F4FEFF", rim: "#E8FBFF", bgA: "#030C11", bgB: "#08202A", metal: 1, rough: 0.02, coat: 0, mode: 11 },
+  tungsten: { tint: "#8E9198", base: "#101114", envTop: "#5E6470", envBottom: "#030304", key: "#F2F5F9", rim: "#D7DCE4", bgA: "#050506", bgB: "#121317", metal: 1, rough: 0.12, coat: 0, mode: 12 },
 };

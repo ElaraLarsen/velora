@@ -1,6 +1,6 @@
 // Real-time metal surfaces behind each Handwave step (adapted from prototype/liquid.ts).
 // The shader matches the approved prototype except one line that moves the champagne sheet
-// (mode 5) right on wide screens; modes 0 and 6 are unused in the app.
+// (mode 5) right on wide screens, and adds forms 7–12 for Hackathon Mode.
 // Each material has its own surface structure, not one shape in different colours:
 //   0 Sapphire Chrome     automotive body panel: a long convex panel with a crease and a dark cavity
 //   1 Obsidian Titanium   lathe-turned dial: machined terraces with circular-brushed reflections
@@ -8,7 +8,14 @@
 //   3 Liquid Silver       polished chrome bars: round profiles sweeping through a wrapped studio
 //   4 Emerald Petrol      emerald chrome sphere: green mirror reflections, deep shadowed rim
 //   5 Champagne Metal     brushed champagne sheet: soft vertical satin reflections
-//   6 Circle (violet)     stacked chrome plates with vertical light bands
+//   6 Violet Anodised     stacked chrome plates with vertical light bands (Planner)
+// Hackathon forms, lit by the general metal shading (8 adds its oxide colours):
+//   7 Anodised Graphite   offset machined plates, like a layer diagram (Tech stack)
+//   8 Heat-Tinted Titanium  ring with an inspection notch (Claim audit)
+//   9 Burnished Copper    two hammered panels facing each other (Judge Q&A)
+//  10 Platinum Pearl      folded sheet with one crease (Report)
+//  11 Glacier Chrome      sealed capsule with a seam (Submission)
+//  12 Tungsten            disc with a machined lip balanced on a beam (Rubric)
 // Every surface is shaded from a height field with a rounded bevel, lit by a procedural studio.
 // WebGL1, one fragment shader, no textures, no libraries.
 
@@ -68,6 +75,37 @@ float shape(vec2 q, out float w) {
   }
   if (is(4.0)) { w = 0.86; return length(q - vec2(0.3, -0.05)) - 0.86; } // sphere: bevel = radius
   if (is(5.0)) { w = 0.12; return sdRoundRect(q, vec2(1.18, 0.80), 0.36); }
+  if (is(7.0)) {
+    // Four machined plates offset like a layer diagram: flat tops, crisp bevels.
+    w = 0.06;
+    float d = sdRoundRect(q - vec2(-0.05, 0.54), vec2(0.95, 0.15), 0.06);
+    d = min(d, sdRoundRect(q - vec2(0.15, 0.18), vec2(0.95, 0.15), 0.06));
+    d = min(d, sdRoundRect(q - vec2(0.35, -0.18), vec2(0.95, 0.15), 0.06));
+    d = min(d, sdRoundRect(q - vec2(0.55, -0.54), vec2(0.95, 0.15), 0.06));
+    return d;
+  }
+  if (is(8.0)) {
+    // A ring with one inspection notch. The bevel equals the band's half-width, so it is fully round.
+    w = 0.18;
+    vec2 p = q - vec2(0.3, -0.05);
+    float d = abs(length(p) - 0.66) - 0.18;
+    return max(d, -sdRoundRect(rot(0.75) * p - vec2(0.0, 0.66), vec2(0.06, 0.32), 0.03));
+  }
+  if (is(9.0)) {
+    // Two rounded panels leaning toward each other, as in a conversation.
+    w = 0.18;
+    float d = sdRoundRect(rot(0.28) * (q - vec2(-0.25, 0.05)), vec2(0.42, 0.95), 0.32);
+    return min(d, sdRoundRect(rot(-0.28) * (q - vec2(0.85, -0.05)), vec2(0.42, 0.95), 0.32));
+  }
+  if (is(10.0)) { w = 0.10; return sdRoundRect(rot(-0.12) * (q - vec2(0.25, 0.0)), vec2(1.15, 0.78), 0.10); }
+  if (is(11.0)) { w = 0.40; return sdRoundRect(rot(-0.18) * (q - vec2(0.3, 0.0)), vec2(1.25, 0.40), 0.40); } // capsule: bevel = radius
+  if (is(12.0)) {
+    // A balance: a disc on a post above a long round beam.
+    w = 0.08;
+    float d = sdRoundRect(rot(-0.06) * (q - vec2(0.35, -0.42)), vec2(1.30, 0.07), 0.07);
+    d = min(d, length(q - vec2(0.35, 0.22)) - 0.52);
+    return min(d, sdRoundRect(q - vec2(0.35, -0.12), vec2(0.06, 0.28), 0.04));
+  }
   w = 0.05; return sdRoundRect(q - vec2(0.55, 0.0), vec2(0.95, 0.92), 0.06);
 }
 
@@ -93,6 +131,26 @@ float relief(vec2 q, float t) {
   if (is(3.0)) return 0.0;                          // the round bar profile comes from the bevel
   if (is(4.0)) return 0.0;                          // the sphere profile comes from the bevel
   if (is(5.0)) return 0.16 * (1.0 - 0.45 * q.x * q.x) + 0.03 * sin(q.x * 2.4 + 0.6); // gently curved sheet
+  if (is(7.0)) return 0.004 * sin(q.y * 160.0);     // machined grooves along each plate
+  if (is(8.0)) return 0.0;                          // the round band profile comes from the bevel
+  if (is(9.0)) {
+    // Each panel curves across its width so it catches the key light; faint hammer marks on top.
+    vec2 a = rot(0.28) * (q - vec2(-0.25, 0.05)), b = rot(-0.28) * (q - vec2(0.85, -0.05));
+    float c = max(1.0 - min(1.0, a.x * a.x * 4.0), 1.0 - min(1.0, b.x * b.x * 4.0));
+    return 0.24 * c + 0.0015 * sin(q.x * 17.0 + sin(q.y * 9.0)) * sin(q.y * 15.0 + sin(q.x * 7.0));
+  }
+  if (is(10.0)) {
+    vec2 p = rot(-0.12) * (q - vec2(0.25, 0.0));
+    return 0.42 * (1.0 - min(1.0, abs(p.x - 0.25 * p.y + 0.1) * 0.9)); // two planes meeting at a crisp fold
+  }
+  if (is(11.0)) {
+    vec2 p = rot(-0.18) * (q - vec2(0.3, 0.0));
+    return -0.05 * exp(-pow((p.x - 0.15) * 30.0, 2.0)); // the capsule's seam
+  }
+  if (is(12.0)) {
+    vec2 p = q - vec2(0.35, 0.22);
+    return smoothstep(0.55, 0.5, length(p)) * (0.05 * (1.0 - 2.0 * dot(p, p)) + 0.01 * smoothstep(0.42, 0.4, length(p))); // raised face, machined lip
+  }
   // Circle: three stacked plates, each gently curved along x, with dark grooves between them.
   float py = (q.y + 0.92) / 1.84 * 3.0;
   float idx = floor(py), fy = fract(py);
@@ -164,6 +222,8 @@ void main() {
   vec2 center = mix(heroC, pageC, u_layout);
   // App only: on wide screens the champagne sheet sits a little farther right, clear of the Prove intro.
   if (is(5.0)) center.x += 0.13 * u_layout * (1.0 - portrait);
+  // Hackathon Planner: the violet plates sit farther left on wide screens, so they show whole.
+  if (is(6.0)) center.x -= 0.12 * u_layout * (1.0 - portrait);
   float zoom = mix(mix(2.1, 2.9, portrait), mix(2.7, 5.4, portrait), u_layout);
   vec2 q = (uv - center) * zoom;
   q += u_ptr * 0.03; // slight parallax
@@ -203,6 +263,15 @@ void main() {
     col = u_base * 0.7 + body * (0.32 + 1.15 * b) + u_key * pow(b, 2.0) * 1.3; // rose-white peaks
     col *= mix(0.45, 1.0, smoothstep(0.0, 0.06, fy) * smoothstep(1.0, 0.94, fy)); // grooves
     col += u_key * 0.35 * smoothstep(0.93, 0.985, fy);         // top edge of each plate
+  } else if (is(8.0)) {
+    // Heat-tinted titanium: the oxide shifts from straw (rim) to violet (tint) to blue round the ring.
+    // Straw at the upper left, violet across the middle, blue at the lower right.
+    vec2 p = q - vec2(0.3, -0.05);
+    float g = dot(normalize(p + 1e-4), vec2(-0.7071, 0.7071));
+    vec3 ox = g > 0.0 ? mix(u_tint, u_rim, smoothstep(0.0, 0.9, g)) : mix(u_tint, u_envTop * 1.6, smoothstep(0.0, 0.9, -g));
+    float L = dot(env(r, u_rough, t), vec3(0.3, 0.5, 0.2));
+    col = ox * (0.22 + 1.5 * L) + u_key * 0.3 * F;
+    col += u_key * 0.3 * pow(max(0.0, n.y), 8.0);
   } else if (is(3.0)) {
     // Polished silver: full reflection of the wrapped studio, white at grazing angles.
     vec3 R3 = vec3(2.0 * n.z * n.x, 2.0 * n.z * n.y, 2.0 * n.z * n.z - 1.0);

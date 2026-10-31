@@ -156,6 +156,37 @@
   --m-btn-text: #f2fbf8;
 }
 
+/* Sapphire Chrome: Hackathon Mode. Deep blue automotive chrome with long strip reflections (from the
+   approved prototype). Sapphire is also the brand and focus colour, so it marks the evaluation mode. */
+[data-material="sapphire"] {
+  --paper: #050a18;
+  --paper-2: #13285a;
+  --card: #0c1a3a;
+  --ink: #f2f5fb;
+  --ink-2: #c3cfe6;
+  --muted: #9aa9c8;
+  --rule: rgba(195, 207, 230, 0.16);
+  --rule-strong: rgba(195, 207, 230, 0.32);
+  --eyebrow: #f3e0b0;
+  --highlight: #f3e0b0;
+  --page-bg:
+    radial-gradient(80% 70% at 75% 30%, #0f2a66 0%, transparent 60%),
+    radial-gradient(60% 60% at 20% 90%, #0b2340 0%, transparent 70%),
+    linear-gradient(160deg, #050a18, #0a1838 60%, #050913);
+  --c-base: #0a1a48;
+  --c-bg: linear-gradient(104deg, #0a1a48 0%, #102462 15%, #142c72 23%, #0e2160 31%, #081639 50%, #0f2465 68%, #132b70 76%, #0a1a48 88%, #0c1d50 100%);
+  --c-micro: radial-gradient(80% 70% at 100% 100%, rgba(0, 0, 0, 0.35), transparent 70%);
+  --c-sheen: radial-gradient(70% 60px at 30% 0, rgba(205, 226, 255, 0.05), transparent 100%);
+  --c-spec: rgba(205, 226, 255, 0.8);
+  --c-bevel: rgba(205, 226, 255, 0.42);
+  --c-shadow: rgba(2, 10, 40, 0.95);
+  --c-edge: linear-gradient(160deg, rgba(220, 235, 255, 0.7), rgba(92, 200, 255, 0.22) 26%, rgba(30, 80, 200, 0.18) 62%, rgba(30, 123, 255, 0.6));
+  --m-accent: #5cc8ff;
+  --m-btn-top: #2a63f0;
+  --m-btn-bottom: #0b2a8c;
+  --m-btn-text: #ffffff;
+}
+
 /* Champagne Metal: brushed warm gold. Vertical grain at two scales, a soft warm sheen. */
 [data-material="champagne"] {
   --paper: #080706;
@@ -187,6 +218,227 @@
   --m-btn-top: #f1dca8;
   --m-btn-bottom: #b08a4f;
   --m-btn-text: #1a140a;
+}
+
+/* ---------- Hackathon materials: "forged and anodised" (docs/HACKATHON_MATERIALS.md) ----------
+   One per Hackathon section; Readiness keeps Sapphire Chrome. Same rules as the Studio metals:
+   dark bodies, status colours untouched, sapphire focus. */
+
+/* Anodised Graphite (Tech stack): cool blue-grey anodised aluminium, fine machined grooves. */
+[data-material="graphite"] {
+  --paper: #07090d;
+  --paper-2: #1c2230;
+  --card: #121722;
+  --ink: #eef2f8;
+  --ink-2: #c4ccd9;
+  --muted: #98a2b4;
+  --rule: rgba(196, 204, 217, 0.15);
+  --rule-strong: rgba(196, 204, 217, 0.3);
+  --eyebrow: #c9d6ea;
+  --highlight: #f3e0b0;
+  --page-bg:
+    radial-gradient(70% 60% at 80% 0%, rgba(159, 180, 208, 0.08), transparent 60%),
+    linear-gradient(170deg, #0d1118, #07090d 60%, #05070a);
+  --c-base: #11161f;
+  --c-bg: linear-gradient(180deg, #1f2633 0%, #1a202b 20%, #151a24 50%, #181e29 76%, #11161f 100%);
+  --c-micro:
+    repeating-linear-gradient(0deg, rgba(190, 210, 240, 0.03) 0 1px, transparent 1px 3px),
+    repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.18) 0 1px, transparent 1px 11px);
+  --c-sheen: radial-gradient(70% 80px at 40% 0, rgba(175, 200, 235, 0.04), transparent 100%);
+  --c-spec: rgba(214, 226, 244, 0.6);
+  --c-bevel: rgba(214, 226, 244, 0.28);
+  --c-shadow: rgba(0, 2, 8, 0.95);
+  --c-edge: linear-gradient(160deg, rgba(214, 226, 244, 0.5), rgba(159, 180, 208, 0.12) 30%, rgba(40, 48, 62, 0.3) 64%, rgba(120, 160, 220, 0.45));
+  --m-accent: #9fb4d0;
+  --m-btn-top: #56647c;
+  --m-btn-bottom: #262e3c;
+  --m-btn-text: #ffffff;
+}
+
+/* Heat-Tinted Titanium (Claim audit): oxidation bands from straw through violet to blue, the
+   colours metal takes when it is stress-tested under heat. */
+[data-material="titanium"] {
+  --paper: #0a0812;
+  --paper-2: #241c3a;
+  --card: #18122a;
+  --ink: #f3f0fa;
+  --ink-2: #d0c8e2;
+  --muted: #a69cbd;
+  --rule: rgba(208, 200, 226, 0.15);
+  --rule-strong: rgba(208, 200, 226, 0.3);
+  --eyebrow: #e3c98a;
+  --highlight: #f3e0b0;
+  --page-bg:
+    radial-gradient(70% 60% at 78% 8%, #1f1838 0%, transparent 65%),
+    linear-gradient(165deg, #120e1f, #0a0812 60%, #07060c);
+  --c-base: #150f26;
+  --c-bg: linear-gradient(120deg, #282016 0%, #241a2a 18%, #1d1636 38%, #171a3a 62%, #13183a 80%, #150f26 100%);
+  --c-micro:
+    radial-gradient(120% 90% at 0% 0%, rgba(217, 181, 106, 0.04), transparent 55%),
+    radial-gradient(90% 80% at 100% 100%, rgba(0, 0, 10, 0.35), transparent 62%);
+  --c-sheen: radial-gradient(80% 70px at 30% 0, rgba(230, 215, 255, 0.04), transparent 100%);
+  --c-spec: rgba(240, 226, 200, 0.7);
+  --c-bevel: rgba(230, 215, 255, 0.32);
+  --c-shadow: rgba(4, 2, 12, 0.95);
+  --c-edge: linear-gradient(160deg, rgba(240, 220, 170, 0.6), rgba(160, 120, 220, 0.2) 30%, rgba(30, 24, 70, 0.4) 64%, rgba(90, 120, 230, 0.5));
+  --m-accent: #c9a8ff;
+  --m-btn-top: #6b4fa8;
+  --m-btn-bottom: #2e2160;
+  --m-btn-text: #ffffff;
+}
+
+/* Burnished Copper (Judge Q&A): warm, hand-worked copper with a soft hammered texture. */
+[data-material="copper"] {
+  --paper: #0d0705;
+  --paper-2: #2e1a12;
+  --card: #20120c;
+  --ink: #faf1ec;
+  --ink-2: #e2cbbf;
+  --muted: #b89c8e;
+  --rule: rgba(226, 203, 191, 0.15);
+  --rule-strong: rgba(226, 203, 191, 0.3);
+  --eyebrow: #f2c1a0;
+  --highlight: #f3e0b0;
+  --page-bg:
+    radial-gradient(65% 55% at 75% 10%, rgba(242, 193, 160, 0.07), transparent 65%),
+    linear-gradient(170deg, #1a0e09, #0d0705 60%, #080403);
+  --c-base: #1c0f09;
+  --c-bg: linear-gradient(170deg, #2e1810 0%, #29160e 25%, #22120b 55%, #26140c 78%, #1c0f09 100%);
+  /* Hammer marks: two offset grids of soft dimples, one lit and one shadowed. */
+  --c-micro:
+    radial-gradient(circle at 50% 50%, rgba(255, 210, 180, 0.012) 0 4px, transparent 7px) 0 0 / 22px 19px,
+    radial-gradient(circle at 50% 50%, rgba(0, 0, 0, 0.05) 0 4px, transparent 7px) 11px 9px / 22px 19px;
+  --c-sheen: radial-gradient(70% 90px at 55% 0, rgba(255, 214, 186, 0.045), transparent 100%);
+  --c-spec: rgba(255, 222, 200, 0.72);
+  --c-bevel: rgba(255, 222, 200, 0.34);
+  --c-shadow: rgba(12, 4, 0, 0.95);
+  --c-edge: linear-gradient(160deg, rgba(255, 214, 186, 0.7), rgba(200, 117, 74, 0.2) 28%, rgba(70, 30, 14, 0.45) 62%, rgba(220, 140, 96, 0.6));
+  --m-accent: #f0a77c;
+  --m-btn-top: #a85c36;
+  --m-btn-bottom: #7a3a1e;
+  --m-btn-text: #ffffff;
+}
+
+/* Platinum Pearl (Report): satin platinum under a pearl coat, the quietest finish. */
+[data-material="pearl"] {
+  --paper: #0b0b0d;
+  --paper-2: #24252b;
+  --card: #18191d;
+  --ink: #f6f4f0;
+  --ink-2: #d4d2cd;
+  --muted: #a6a4a0;
+  --rule: rgba(212, 210, 205, 0.15);
+  --rule-strong: rgba(212, 210, 205, 0.3);
+  --eyebrow: #e6dccb;
+  --highlight: #f3e0b0;
+  --page-bg:
+    radial-gradient(70% 55% at 78% 6%, rgba(255, 248, 238, 0.06), transparent 62%),
+    linear-gradient(170deg, #151519, #0b0b0d 60%, #070708);
+  --c-base: #17181c;
+  --c-bg: linear-gradient(175deg, #26272c 0%, #222328 28%, #1d1e22 58%, #201f24 82%, #17181c 100%);
+  --c-micro:
+    radial-gradient(120% 80% at 10% 0%, rgba(255, 236, 246, 0.03), transparent 60%),
+    radial-gradient(120% 80% at 90% 100%, rgba(220, 240, 255, 0.025), transparent 60%);
+  --c-sheen: radial-gradient(80% 100px at 50% 0, rgba(255, 248, 238, 0.04), transparent 100%);
+  --c-spec: rgba(255, 250, 242, 0.6);
+  --c-bevel: rgba(255, 250, 242, 0.26);
+  --c-shadow: rgba(0, 0, 0, 0.92);
+  --c-edge: linear-gradient(160deg, rgba(255, 250, 242, 0.55), rgba(220, 222, 230, 0.12) 30%, rgba(50, 50, 56, 0.3) 64%, rgba(230, 220, 240, 0.4));
+  --m-accent: #e6dccb;
+  --m-btn-top: #6a6b72;
+  --m-btn-bottom: #34353b;
+  --m-btn-text: #ffffff;
+}
+
+/* Violet Anodised (Planner): deep indigo-violet anodising with vertical bands, like columns of time. */
+[data-material="violet"] {
+  --paper: #09060f;
+  --paper-2: #24173f;
+  --card: #170f2b;
+  --ink: #f4f0fc;
+  --ink-2: #d2c8ea;
+  --muted: #a99cc4;
+  --rule: rgba(210, 200, 234, 0.15);
+  --rule-strong: rgba(210, 200, 234, 0.3);
+  --eyebrow: #d8c6ff;
+  --highlight: #f3e0b0;
+  --page-bg:
+    radial-gradient(70% 60% at 76% 8%, #21134a 0%, transparent 62%),
+    linear-gradient(165deg, #120a24, #09060f 60%, #06040b);
+  --c-base: #140c27;
+  --c-bg: linear-gradient(90deg, #160d2c 0%, #1d1238 16%, #170e2e 30%, #1e1340 46%, #160d2c 62%, #1c1238 80%, #140c27 100%);
+  --c-micro:
+    repeating-linear-gradient(90deg, rgba(200, 170, 255, 0.025) 0 1px, transparent 1px 4px),
+    radial-gradient(90% 80% at 100% 100%, rgba(0, 0, 0, 0.3), transparent 62%);
+  --c-sheen: radial-gradient(70% 80px at 35% 0, rgba(220, 200, 255, 0.045), transparent 100%);
+  --c-spec: rgba(232, 220, 255, 0.72);
+  --c-bevel: rgba(232, 220, 255, 0.34);
+  --c-shadow: rgba(6, 2, 16, 0.95);
+  --c-edge: linear-gradient(160deg, rgba(232, 220, 255, 0.62), rgba(176, 76, 224, 0.2) 28%, rgba(30, 16, 70, 0.42) 62%, rgba(140, 100, 255, 0.55));
+  --m-accent: #b998ff;
+  --m-btn-top: #6c3fd8;
+  --m-btn-bottom: #34187a;
+  --m-btn-text: #ffffff;
+}
+
+/* Glacier Chrome (Submission): cold polished chrome, icy and clean. */
+[data-material="glacier"] {
+  --paper: #040b0f;
+  --paper-2: #12303b;
+  --card: #0b2029;
+  --ink: #effbfd;
+  --ink-2: #c3dde4;
+  --muted: #94b4bd;
+  --rule: rgba(195, 221, 228, 0.15);
+  --rule-strong: rgba(195, 221, 228, 0.3);
+  --eyebrow: #bfeef8;
+  --highlight: #f3e0b0;
+  --page-bg:
+    radial-gradient(70% 60% at 78% 6%, #0d2c38 0%, transparent 62%),
+    linear-gradient(165deg, #081820, #040b0f 60%, #03080b);
+  --c-base: #0a1d25;
+  --c-bg: linear-gradient(104deg, #0b2029 0%, #0f2a35 18%, #13323e 26%, #0d2530 38%, #091b23 56%, #0e2833 72%, #12303b 80%, #0a1d25 100%);
+  --c-micro: radial-gradient(80% 70% at 100% 100%, rgba(0, 0, 0, 0.32), transparent 70%);
+  --c-sheen: radial-gradient(70% 60px at 30% 0, rgba(220, 250, 255, 0.05), transparent 100%);
+  --c-spec: rgba(232, 251, 255, 0.82);
+  --c-bevel: rgba(232, 251, 255, 0.4);
+  --c-shadow: rgba(0, 10, 16, 0.95);
+  --c-edge: linear-gradient(160deg, rgba(232, 251, 255, 0.72), rgba(120, 220, 240, 0.22) 26%, rgba(10, 50, 64, 0.3) 62%, rgba(110, 210, 235, 0.55));
+  --m-accent: #8fe3f5;
+  --m-btn-top: #237a98;
+  --m-btn-bottom: #0f4a5e;
+  --m-btn-text: #ffffff;
+}
+
+/* Tungsten (Rubric): dense, dark, slightly warm grey with a fine knurled cross-hatch. */
+[data-material="tungsten"] {
+  --paper: #08080a;
+  --paper-2: #202126;
+  --card: #16171a;
+  --ink: #f2f3f5;
+  --ink-2: #cdd0d6;
+  --muted: #9ea2aa;
+  --rule: rgba(205, 208, 214, 0.15);
+  --rule-strong: rgba(205, 208, 214, 0.3);
+  --eyebrow: #d7dce4;
+  --highlight: #f3e0b0;
+  --page-bg:
+    radial-gradient(65% 55% at 78% 8%, rgba(215, 220, 228, 0.06), transparent 62%),
+    linear-gradient(170deg, #121316, #08080a 60%, #050506);
+  --c-base: #141518;
+  --c-bg: linear-gradient(160deg, #232428 0%, #1e1f23 30%, #18191c 60%, #1b1c1f 82%, #141518 100%);
+  --c-micro:
+    repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.015) 0 1px, transparent 1px 6px),
+    repeating-linear-gradient(-45deg, rgba(0, 0, 0, 0.09) 0 1px, transparent 1px 6px);
+  --c-sheen: radial-gradient(70% 90px at 50% 0, rgba(235, 238, 244, 0.035), transparent 100%);
+  --c-spec: rgba(240, 242, 246, 0.6);
+  --c-bevel: rgba(240, 242, 246, 0.26);
+  --c-shadow: rgba(0, 0, 0, 0.95);
+  --c-edge: linear-gradient(160deg, rgba(240, 242, 246, 0.5), rgba(160, 166, 176, 0.12) 30%, rgba(40, 42, 48, 0.3) 64%, rgba(200, 206, 216, 0.4));
+  --m-accent: #d7dce4;
+  --m-btn-top: #62666f;
+  --m-btn-bottom: #2c2e33;
+  --m-btn-text: #ffffff;
 }
 
 /* ---------- surfaces ---------- */
@@ -381,8 +633,9 @@
   box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.55), 0 0 0 3px color-mix(in srgb, var(--sapphire) 22%, transparent);
 }
 
-/* The current step: a quiet raised plate with the page accent along its edge. */
-[data-material] [aria-current="step"].bg-ink.text-paper {
+/* The current step (and, in Hackathon Mode, the current section): a quiet raised plate with the
+   page accent along its edge. */
+[data-material] :is([aria-current="step"], [aria-current="page"]).bg-ink.text-paper {
   background:
     linear-gradient(90deg, color-mix(in srgb, var(--m-accent) 13%, transparent), transparent 85%),
     linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.02));
@@ -407,6 +660,68 @@
 .hw-dot-silver { background: radial-gradient(circle at 35% 30%, #ffffff 0 10%, #e6eaf0 28%, #8a9099 62%, #3e454e 100%); }
 .hw-dot-emerald { background: radial-gradient(circle at 35% 30%, #e3f1ea 0 6%, #7fc7b4 20%, #3e8c7e 50%, #0b2a20 100%); }
 .hw-dot-champagne { background: radial-gradient(circle at 35% 30%, #ffebc4 0 6%, #e7d2a6 22%, #c9a46a 52%, #4a3418 100%); }
+.hw-dot-sapphire { background: radial-gradient(circle at 35% 30%, #e8f1ff 0 6%, #8fdbff 20%, #2f6bff 50%, #0a1e5a 100%); }
+.hw-dot-graphite { background: radial-gradient(circle at 35% 30%, #eef3fa 0 6%, #9fb4d0 20%, #56647c 52%, #14181f 100%); }
+.hw-dot-titanium { background: radial-gradient(circle at 35% 30%, #fff4dc 0 6%, #d9b56a 22%, #8a6bd0 50%, #2a3c8a 76%, #1a1430 100%); }
+.hw-dot-copper { background: radial-gradient(circle at 35% 30%, #ffe6d2 0 6%, #f2c1a0 20%, #c8754a 50%, #2a1408 100%); }
+.hw-dot-pearl { background: radial-gradient(circle at 35% 30%, #ffffff 0 10%, #fff1e8 26%, #c9ccd4 58%, #3a3b42 100%); }
+.hw-dot-violet { background: radial-gradient(circle at 35% 30%, #f4e9ff 0 6%, #c79cff 20%, #6c3fd8 50%, #160a2e 100%); }
+.hw-dot-glacier { background: radial-gradient(circle at 35% 30%, #ffffff 0 8%, #c8f4ff 22%, #3fa9c9 54%, #071a22 100%); }
+.hw-dot-tungsten { background: radial-gradient(circle at 35% 30%, #f2f5f9 0 6%, #b4b9c2 22%, #5e6470 54%, #101114 100%); }
 button:disabled .hw-dot {
   opacity: 0.45;
+}
+
+/* Mode switch (Studio | Hackathon): a recessed track; the selected mode is a raised metal plate in
+   the current page's accent. */
+.hw-mode {
+  /* Nearly opaque, so the artwork behind it never competes with the labels. */
+  background: color-mix(in srgb, var(--paper) 88%, transparent);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.55), inset 0 0 0 1px var(--rule);
+}
+.hw-mode-on {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.14), rgba(255, 255, 255, 0.04));
+  color: var(--ink);
+  box-shadow:
+    inset 0 0 0 1px color-mix(in srgb, var(--m-accent) 60%, transparent),
+    inset 0 1px 0 rgba(255, 255, 255, 0.22),
+    0 2px 8px -2px rgba(0, 0, 0, 0.6);
+}
+
+/* Mode identity: the two taglines share one grid cell, so the wider one sets the width and the
+   header never moves when they cross-fade. */
+.hw-tagline > span {
+  grid-area: 1 / 1;
+  transition: opacity 320ms ease;
+}
+/* Content fades in after a mode switch (never on first load). */
+@keyframes hw-mode-in {
+  from { opacity: 0; }
+}
+.hw-mode-enter {
+  animation: hw-mode-in 220ms ease-out;
+}
+@media (prefers-reduced-motion: reduce) {
+  .hw-tagline > span { transition: none; }
+  .hw-mode-enter { animation: none; }
+}
+
+/* Deadline clock units: small machined plates in the page's own metal, dark enough for the
+   numerals to keep full contrast. */
+.hw-clock-unit {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0) 46%),
+    color-mix(in srgb, var(--paper-2) 92%, #000);
+  box-shadow:
+    inset 0 0 0 1px var(--rule),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1),
+    0 2px 6px -3px rgba(0, 0, 0, 0.7);
+}
+.hw-clock:not(.hw-clock-personal) .hw-clock-unit {
+  box-shadow:
+    inset 0 0 0 1px color-mix(in srgb, var(--m-accent) 45%, var(--rule)),
+    inset 0 1px 0 rgba(255, 255, 255, 0.12),
+    0 2px 6px -3px rgba(0, 0, 0, 0.7);
 }

@@ -8,7 +8,7 @@ import {
   checkJsonSchema,
   extractJsonSchema,
   parseModelJson,
-} from "../shared/schemas";
+} from "../shared/schemas.js";
 import { validateSourceFiles } from "../shared/sourceFiles.js";
 import { applyVerdictRules, summarize } from "../shared/verdictRules.js";
 import { CHECK_SYSTEM, EXTRACT_SYSTEM, checkUserPrompt, extractUserPrompt } from "./prompts.js";

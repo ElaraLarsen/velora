@@ -1,6 +1,8 @@
-# Handwave
+# Velora
 
-Explain your AI-built app out loud. Handwave checks which of your beliefs the source code actually supports.
+ASK · IDEATE · BUILD · VERIFY · SHIP
+
+Explain your AI-built app out loud. Velora checks which of your beliefs the source code actually supports.
 
 ## The flow
 
@@ -24,7 +26,7 @@ npm test           # deterministic tests
 npm run build      # type-check + production build
 ```
 
-Without a key, Handwave runs in **demo mode** and says so everywhere. In demo mode, the bundled sample project replays pre-written responses through the real safeguards; any other code is not analysed (every claim comes back NOT VERIFIABLE).
+Without a key, Velora runs in **demo mode** and says so everywhere. In demo mode, the bundled sample project replays pre-written responses through the real safeguards; any other code is not analysed (every claim comes back NOT VERIFIABLE).
 
 To go live, copy `.env.example` to `.env` and set `GEMINI_API_KEY`. Optionally set `GEMINI_MODEL` (default `gemini-3.5-flash-lite`; `gemini-2.5-flash` is closed to new API users).
 

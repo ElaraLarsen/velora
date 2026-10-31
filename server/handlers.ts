@@ -67,7 +67,7 @@ async function callValidated<T>(deps: HandlerDeps, input: StageInput, schema: z.
   }
   return {
     ok: false,
-    result: error(502, "malformed_ai_response", "The AI returned a response Handwave could not validate, twice. Nothing is shown rather than a partial result.", { detail: lastError }),
+    result: error(502, "malformed_ai_response", "The AI returned a response Velora could not validate, twice. Nothing is shown rather than a partial result.", { detail: lastError }),
   };
 }
 

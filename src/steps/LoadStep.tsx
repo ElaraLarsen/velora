@@ -102,7 +102,7 @@ export function LoadStep({
             Bring the code for <em className="italic">one</em> feature.
           </>
         }
-        lede="Upload the files behind a single feature. Handwave keeps them locked: you won't see a line of code until you've explained the feature in your own words."
+        lede="Upload the files behind a single feature. Velora keeps them locked: you won't see a line of code until you've explained the feature in your own words."
       />
 
       <div
@@ -348,15 +348,15 @@ export function LoadStep({
           <p className="mt-2 text-sm leading-6 text-ink-2">
             When you run the evidence check, the files are sent to{" "}
             <strong>{mode.provider}</strong> ({mode.model}) for analysis.
-            Handwave does not store them. On Gemini's free tier, Google states
+            Velora does not store them. On Gemini's free tier, Google states
             that submitted content may be used to improve its products. Don't
             upload secrets or code you aren't allowed to share.
           </p>
         ) : (
           <p className="mt-2 text-sm leading-6 text-ink-2">
-            Demo mode: files are sent to the Handwave server for this session,
+            Demo mode: files are sent to the Velora server for this session,
             and no AI provider is called. In live mode, source code is sent to
-            the configured AI provider for analysis. Handwave never stores
+            the configured AI provider for analysis. Velora never stores
             uploaded code.
           </p>
         )}

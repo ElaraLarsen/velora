@@ -1,4 +1,4 @@
-# Handwave metal redesign — progress
+# Velora (formerly Handwave) metal redesign — progress
 
 Branch `redesign/metal` (local only: no remote, nothing pushed or deployed).
 
@@ -9,12 +9,51 @@ Branch `redesign/metal` (local only: no remote, nothing pushed or deployed).
 | 2 | Per-step metal finishes on cards, panels, tiles and rows | `3d98909` | Completed and committed |
 | 3 | Metallic hero artwork behind each step | `ad35e23` | Completed and committed (approved 29 Oct 2026) |
 | 4 | Remaining visual polish (seven approved items) | `005d50a` | Completed and committed (approved 29 Oct 2026) |
-| 5 | Not yet scoped | starts from `005d50a` | Waiting for scope approval |
+| 5 | Velora rebrand: resolve the uncommitted rebrand | committed as "Complete Velora rebrand cleanup" (starts from `085b2ce`) | Completed (approved 31 Oct 2026) |
 
-## Phase 5 — starting checkpoint
+## Phase 5 — Velora rebrand (31 Oct 2026)
 
-Phase 5 starts from commit `005d50a` (Phase 4) on `redesign/metal`. Its scope has not been
-approved yet; no Phase 5 work has begun.
+Starting point: `085b2ce` plus an uncommitted rose-burgundy Velora rebrand already in the working
+tree (`index.html`, `src/App.tsx`, new `src/brand.tsx`; not written in this session). That work was
+kept: the rose-burgundy metallic V, the Velora wordmark, the tagline ASK · IDEATE · BUILD · VERIFY
+· SHIP, the favicon, the `theme-color` and the page title.
+
+Changes made on top of it:
+- The header brand was an `<a href="/">`. Velora keeps the project in memory only, so that link
+  reloaded the page and discarded the uploaded files, claims and verdicts. It is now static text
+  (as the old wordmark was): not a link, not a tab stop; the banner reads "Velora".
+- The tagline's monospace text asked for medium weight, which Phase 4 maps to bold; IBM Plex Mono
+  has no bold loaded, so the browser faked it. It now uses the loaded 500 weight.
+- The product name in existing user-facing sentences: Load intro and privacy notes, Evidence
+  downgrade note and demo notice, the network error (`src/api.ts`) and the malformed-response
+  error (`server/handlers.ts`). Wording otherwise unchanged.
+- The meta description presented the tagline as features ("Ask, ideate, build, verify, and ship
+  with Velora"). It now keeps the tagline as the tagline and describes what the app does.
+- `README.md` (title, tagline, product name) and the `.env.example` comment.
+
+Tagline against current capabilities: Verify is what the app does today (claims checked against
+quotes from the uploaded code). Build, Ship, Ask and Ideate are brand direction, not current
+features: the app does not generate or deploy code, answer questions or generate ideas. The
+tagline is used only as a tagline (header, title, README); no copy describes those as features.
+
+Intentionally unchanged internal identifiers: `package.json`/`package-lock.json` name `handwave`,
+the `HANDWAVE_MODE` environment variable, the Vite plugin `handwave-api` and its log prefix,
+`.claude/launch.json`, the folder name, code comments, test fixtures, the historical
+`docs/synthetic-safeguard-report.md`, and the prototype.
+
+### Checks actually run
+
+- Typecheck: passed. Tests: 81/81 passed (no test changed). Build: passed (`dist/index.html`
+  carries the Velora title and description). Phase 2 surface contrast: 1,135/1,135.
+- Header in demo mode and simulated live mode (status answered in the test browser; no AI call)
+  at 1440, 1024 and 375: brand is static text; tagline shown at 1440 and 1024 (500, 9.28 px),
+  hidden at 375; title, SVG favicon and `theme-color` present; 0 overflow.
+- Clicking the brand after loading the sample project: same page, three files still listed.
+- Demo walkthroughs of all five steps at 1440×900, 1024×768 and 375×812: 0 console errors,
+  0 failed requests, 0 overflow, artwork on every step, focus ring sapphire, and no "Handwave"
+  in the rendered text (also checked in simulated live mode on Load).
+- Header height is 69 px at 1440 and 1024 and 65 px at 375 (about 57 px before the rebrand): the
+  rebrand's 40 px mark and two-line brand. Kept at your request (31 Oct 2026); may be revisited later.
 
 ## QA screenshots (all phases)
 

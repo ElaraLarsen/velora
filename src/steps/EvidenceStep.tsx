@@ -154,7 +154,7 @@ function VerdictCard({
                   {VERDICT_META[v.proposedVerdict].label.toLowerCase()}
                 </strong>
                 , but none of its quotes could be found in your files.
-                Handwave therefore marks this claim as{" "}
+                Velora therefore marks this claim as{" "}
                 <strong>not verifiable</strong>.
               </p>
             </div>
@@ -309,7 +309,7 @@ export function EvidenceStep({
       {demo && (
         <Alert tone="note">
           {sample
-            ? "Demo mode: these are pre-written responses for the sample project, run through Handwave's real quote checks. They are not an AI analysis or a real finding."
+            ? "Demo mode: these are pre-written responses for the sample project, run through Velora's real quote checks. They are not an AI analysis or a real finding."
             : "Demo mode: no AI analysis was run, so nothing was checked. Add a Gemini API key to check real code."}
         </Alert>
       )}

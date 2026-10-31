@@ -1,8 +1,9 @@
+import { ApiError, api, type ModeInfo } from "./api";
+import { VeloraBrand } from "./brand";
 import { Lock, Unlock } from "lucide-react";
 import { useEffect, useState } from "react";
 import type { CheckedVerdict, ConfirmedClaim, SourceFile } from "../shared/types";
 import { reverifyVerdicts, summarize } from "../shared/verdictRules";
-import { ApiError, api, type ModeInfo } from "./api";
 import { HeroArtwork } from "./artwork/HeroArtwork";
 import type { MaterialId } from "./artwork/materials";
 import { ClaimsStep, type DraftClaim } from "./steps/ClaimsStep";
@@ -29,16 +30,7 @@ function message(e: unknown): string {
   return e instanceof ApiError ? e.message : "Something went wrong. Try again.";
 }
 
-function Wordmark() {
-  return (
-    <span className="inline-flex flex-col leading-none">
-      <span className="font-serif text-[1.55rem] italic tracking-[-0.01em]">Handwave</span>
-      <svg aria-hidden viewBox="0 0 120 8" className="-mt-0.5 h-2 w-[6.2rem] text-marker">
-        <path d="M2 5c8-6 14-6 20 0s12 6 20 0 12-6 20 0 12 6 20 0 12-6 20 0 10 5 16 1" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" />
-      </svg>
-    </span>
-  );
-}
+
 
 export default function App() {
   const [mode, setMode] = useState<ModeInfo | null>(null);
@@ -145,7 +137,7 @@ export default function App() {
       <HeroArtwork material={MATERIAL[step]} />
       <header className="sticky top-0 z-10 border-b border-rule bg-paper/90 backdrop-blur">
         <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-3 sm:px-6">
-          <Wordmark />
+          <VeloraBrand />
           <div className="flex items-center gap-3">
             <span className="hidden items-center gap-1.5 font-mono text-[0.7rem] uppercase tracking-wider text-muted sm:inline-flex">
               {unlocked ? <Unlock aria-hidden className="size-3.5" /> : <Lock aria-hidden className="size-3.5" />}
@@ -271,3 +263,4 @@ export default function App() {
     </div>
   );
 }
+

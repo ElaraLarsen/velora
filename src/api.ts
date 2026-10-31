@@ -39,7 +39,7 @@ async function request<T>(path: string, init?: RequestInit): Promise<T> {
   try {
     res = await fetch(path, { ...init, headers: { "Content-Type": "application/json", ...init?.headers } });
   } catch {
-    throw new ApiError("Couldn't reach the Handwave server. Check your connection and try again.", "network");
+    throw new ApiError("Couldn't reach the Velora server. Check your connection and try again.", "network");
   }
   let body: unknown;
   try {
